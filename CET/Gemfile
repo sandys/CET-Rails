@@ -16,6 +16,7 @@ platforms :jruby do
   gem 'jdbc-postgres', :require => false
 end
 
+gem "devise"
 
 # Use unicorn as the web server
 # gem 'unicorn'
