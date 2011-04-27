@@ -7,11 +7,13 @@ gem 'rails', '3.0.5'
 
 platforms :ruby do
   gem 'mysql2'
+  gem 'pg'
 end
 
 platforms :jruby do
   gem 'activerecord-jdbc-adapter'
   gem 'jdbc-mysql', :require => false
+  gem 'jdbc-postgres', :require => false
 end
 
 
