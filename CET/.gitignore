@@ -2,3 +2,7 @@
 db/*.sqlite3
 log/*.log
 tmp/
+files/pdf/*.pdf
+files/xls/*.*
+files/attachment/*.*
+files/compress/*.*
