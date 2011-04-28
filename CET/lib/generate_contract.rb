@@ -13,4 +13,14 @@ module GenerateContract
 			pdf.render_file(Rails.root.join('files/pdf',"#{contract.id}_#{contract.name}.pdf"))
 		end
 	end
+	
+	class XLS
+		def self.create(contract)
+			book = Spreadsheet::Workbook.new
+			sheet = book.create_worksheet :name => "data"
+			sheet.row(0).concat %w{Name Phone}
+			sheet.row(1).push contract.name, contract.phone
+			book.write(Rails.root.join('files/xls',"#{contract.id}_#{contract.name}.xls"))
+		end
+	end
 end

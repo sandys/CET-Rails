@@ -19,7 +19,7 @@ end
 gem "devise"
 
 gem 'prawn', :git => "git://github.com/sandal/prawn.git", :tag => '0.11.1', :submodules => true
-
+gem 'spreadsheet'
 
 # Use unicorn as the web server
 # gem 'unicorn'
