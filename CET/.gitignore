@@ -3,6 +3,6 @@ db/*.sqlite3
 log/*.log
 tmp/
 files/pdf/*.pdf
-files/xls/*.*
+files/xls/*.xls
 files/attachment/*.*
-files/compress/*.*
+files/compress/*.zip
