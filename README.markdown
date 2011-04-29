@@ -13,3 +13,8 @@ bundle install
 rake db:create
 rake db:migrate
 
+Setting up Resque
+=================
+ Make sure `redis-server` is running
+ execute `VVERBOSE=1 QUEUE=pdf_serve,xls_serve,compress_serve,mail_serve rake environment resque:work` to run all the queue
+

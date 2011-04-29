@@ -23,6 +23,10 @@ gem 'spreadsheet'
 gem 'rubyzip'
 gem 'mail'
 gem 'jruby-openssl'
+gem 'resque'
+gem 'redis'
+gem 'redis-namespace'
+gem 'vegas'
 
 # Use unicorn as the web server
 # gem 'unicorn'
