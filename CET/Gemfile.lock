@@ -53,6 +53,9 @@ GEM
     i18n (0.5.0)
     jdbc-mysql (5.1.13)
     jdbc-postgres (9.0.801)
+    jquery-rails (0.2.7)
+      rails (~> 3.0)
+      thor (~> 0.14.4)
     jruby-openssl (0.7.4)
       bouncy-castle-java
     json (1.4.6-java)
@@ -119,6 +122,7 @@ DEPENDENCIES
   devise
   jdbc-mysql
   jdbc-postgres
+  jquery-rails
   jruby-openssl
   mail
   mysql2
