@@ -1,11 +1,32 @@
 <%= form_for @contract do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :name %><br />
+    <%= label_tag 'person_location', "Batch Location" %>
+    <%=  select_box('person[location]', @locations) %>
+  </p>
+  
+  <p>
+    <%= label_tag 'sale_type', "Sales Type" %>
+    <%=  select_box('sales[type]', []) %>
+  </p>
+  
+   <p>
+    <%= label_tag 'sale_need', "Sales Need" %>
+    <%=  select_box('sales[need]', @sales_need) %>
+  </p>
+  
+  <p>
+    <%= label_tag 'sale_txntype', "Txn Type" %>
+    <%=  select_box('sales[txntype]', []) %>
+  </p>
+  
+  
+  <p>
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :phone %><br />
+    <%= f.label :phone %>
     <%= f.text_field :phone %>
   </p>
   <p><%= f.submit %></p>

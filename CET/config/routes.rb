@@ -1,7 +1,16 @@
 CET::Application.routes.draw do
   devise_for :users
 
-  resources :contracts
+  resources :contracts do 
+    member do 
+      post 'sales_type' 
+      post "sales_txn_type"
+    end
+    collection do 
+      post 'sales_type' 
+      post "sales_txn_type"
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

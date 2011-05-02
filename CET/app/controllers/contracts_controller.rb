@@ -7,6 +7,8 @@ class ContractsController < ApplicationController
 
   def new
     @contract = Contract.new
+    @locations = HMIS::locations(current_user.email)
+    @sales_need = HMIS::sales_need()
   end
 
   def create
@@ -31,4 +33,20 @@ class ContractsController < ApplicationController
       render :action => 'edit'
     end
   end
+  
+  def sales_type
+    location_id = params[:location_id].blank? ? nil : params[:location_id]
+    @sale_types = location_id.blank? ? [] : HMIS::get_sales_type(location_id)
+     respond_to do |format|
+       format.js{ render :partial => 'properties', :layout=>false, :locals => {:item => @sale_types} }
+     end
+  end 
+  
+  def sales_txn_type
+    sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
+    @sales_txn_types = sales_type_id.blank? ? [] : HMIS::get_sales_txn_type(sales_type_id)
+     respond_to do |format|
+       format.js{ render :partial => 'properties', :layout=>false, :locals => {:item => @sales_txn_types } }
+     end
+  end  
 end
