@@ -38,7 +38,7 @@ class ContractsController < ApplicationController
     location_id = params[:location_id].blank? ? nil : params[:location_id]
     @sale_types = location_id.blank? ? [] : HMIS::get_sales_type(location_id)
      respond_to do |format|
-       format.js{ render :partial => 'properties', :layout=>false, :locals => {:item => @sale_types} }
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sale_types} }
      end
   end 
   
@@ -46,7 +46,7 @@ class ContractsController < ApplicationController
     sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
     @sales_txn_types = sales_type_id.blank? ? [] : HMIS::get_sales_txn_type(sales_type_id)
      respond_to do |format|
-       format.js{ render :partial => 'properties', :layout=>false, :locals => {:item => @sales_txn_types } }
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sales_txn_types } }
      end
   end  
 end

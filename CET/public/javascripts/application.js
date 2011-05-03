@@ -2,10 +2,11 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $(function() {
-  $( "button, input:submit").button();
 
-  $("#person_location").change(function() {
-    var id = $('#person_location').val();
+  $("#batch_date").datepicker();
+  $("#sales_txndate").datepicker();
+  $("#batch_location").change(function() {
+    var id = $('#batch_location').val();
     $.post('sales_type', {location_id : id }, function(data) {
       $("#sales_type").html(data);
     });
@@ -13,7 +14,6 @@ $(function() {
   
   $("#sales_type").change(function() {
     var id = $('#sales_type').val();
-    console.log(id);
     $.post('sales_txn_type', {sales_type_id : id }, function(data) {
       $("#sales_txntype").html(data);
     });

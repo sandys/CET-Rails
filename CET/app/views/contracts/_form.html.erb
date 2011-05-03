@@ -1,25 +1,38 @@
 <%= form_for @contract do |f| %>
   <%= f.error_messages %>
-  <p>
-    <%= label_tag 'person_location', "Batch Location" %>
-    <%=  select_box('person[location]', @locations) %>
-  </p>
   
-  <p>
-    <%= label_tag 'sale_type', "Sales Type" %>
-    <%=  select_box('sales[type]', []) %>
-  </p>
-  
+  <% field_set_tag "Contract Information" do %>
+    <p>
+      <%= label_tag 'batch_location', "Batch Location" %>
+      <%=  select_box('batch[location]', @locations) %>
+    </p>
+   
    <p>
-    <%= label_tag 'sale_need', "Sales Need" %>
-    <%=  select_box('sales[need]', @sales_need) %>
-  </p>
-  
-  <p>
-    <%= label_tag 'sale_txntype', "Txn Type" %>
-    <%=  select_box('sales[txntype]', []) %>
-  </p>
-  
+      <%= label_tag 'batch_date', "Batch Date" %>
+      <%#=  date_select('batch', 'date') %>
+      <%= text_field_tag "batch[date]", "" %>
+    </p>
+    
+    <p>
+      <%= label_tag 'sales_txn_date', "Txn Date" %>
+      <%= text_field_tag "sales[txndate]", "" %>
+    </p>
+    
+    <p>
+      <%= label_tag 'sale_type', "Sales Type" %>
+      <%=  select_box('sales[type]', []) %>
+    </p>
+    
+     <p>
+      <%= label_tag 'sale_need', "Sales Need" %>
+      <%=  select_box('sales[need]', @sales_need) %>
+    </p>
+    
+    <p>
+      <%= label_tag 'sale_txntype', "Txn Type" %>
+      <%=  select_box('sales[txntype]', []) %>
+    </p>
+  <% end %>
   
   <p>
     <%= f.label :name %>

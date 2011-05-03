@@ -35,7 +35,7 @@ module CET
     if Rails.env.production? 
       config.action_view.javascript_expansions[:defaults] = %w(jquery.min jquery-ui.min rails application) 
     else 
-      config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui rails application) 
+      config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui rails) 
     end
 
     # Configure the default encoding used in templates for Ruby 1.9.
