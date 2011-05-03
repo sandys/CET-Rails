@@ -9,6 +9,7 @@ class ContractsController < ApplicationController
     @contract = Contract.new
     @locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
+    @name_types = HMIS::name_types()
   end
 
   def create

@@ -1,0 +1,47 @@
+<tr class=<%= item%2 == 0 ? "alt" : ""%>>
+	<td>
+		<%= text_field_tag "item[][item_cd_search_#{item}]", "", :size => 6 %>
+	</td>
+	<td>
+		<%= text_field_tag "item[][item_desc__search_#{item}]", "", :size => 3  %>
+	</td>
+	<td>
+		<%= select_box("item_category_code_#{item}", []) %>
+	</td>
+	<td>
+		<%= select_box("item_group_code_#{item}", []) %>
+	</td>
+	<td>
+		<a id=<%= "item_find_#{item}" %> href="#">Find </a>
+	</td>
+	<td>
+		<%= select_box("item_list_#{item}", []) %>
+	</td>
+	<td>
+		<%= text_field_tag "item[][final_code_#{item}]", "", :size => 6  %>
+	</td>
+	<td>
+		<%= text_field_tag "item[][final_desc_#{item}]", "", :size => 10  %>
+	</td>
+	<td>
+		<%= text_field_tag "item[][quantity_#{item}]", "", :size => 5 %>
+	</td>
+	<td>
+		<%= text_field_tag "item[][price_#{item}]", "", :size => 5  %>
+	</td>
+	<td>
+		<%= text_field_tag "item[][discount_percent_#{item}]", "", :size => 5  %>
+	</td>
+	<td>
+		<%= text_field_tag "item[][discount_#{item}]", "", :size => 5  %>
+	</td>
+	<td>
+		<%= select_box("item_discount_reason_#{item}", []) %>
+	</td>
+	<td>
+		<%= text_field_tag "item[][cost_#{item}]", "", :size => 5, :limit => 10  %>
+	</td>
+	<td>
+		<%= select_box("item[][sale_need_#{item}]", @sales_need)%>
+	</td>
+</tr>
