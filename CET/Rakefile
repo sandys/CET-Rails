@@ -3,5 +3,12 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
+require 'lib/pdf_queue'
+require 'lib/xls_queue'
+require 'lib/compress_queue'
+require 'lib/mail_queue'
+require 'lib/hmis'
+require 'resque'
+require 'resque/tasks'
 
 CET::Application.load_tasks

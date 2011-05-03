@@ -11,4 +11,10 @@ Setting up your devel environment
 cat gemlist.sss | python -c "import sys;import re; from itertools import chain; l=sys.stdin.readlines();x=[ [ ' install --no-ri --no-rdoc ' + line[:-1][:line.index(' ')] + ' --version ' +k for k in line[line.index('(')+1:line.index(')')].split(',')]   for line in l]; print '\n'.join(item for item in chain(*x))" | xargs -L 1 -t gem
 bundle install
 rake db:create
+rake db:migrate
+
+Setting up Resque
+=================
+ Make sure `redis-server` is running
+ execute `VVERBOSE=1 QUEUE=pdf_serve,xls_serve,compress_serve,mail_serve rake environment resque:work` to run all the queue
 

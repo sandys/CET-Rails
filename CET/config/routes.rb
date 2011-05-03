@@ -1,4 +1,19 @@
 CET::Application.routes.draw do
+  devise_for :users
+
+  resources :contracts do 
+    member do 
+      post 'sales_type' 
+      post "sales_txn_type"
+    end
+    collection do 
+      post 'sales_type' 
+      post "sales_txn_type"
+      post "sales_counselor"
+      post "sales_lead_source"
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +63,7 @@ CET::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+    root :to => "contracts#index"
 
   # See how all your routes lay out with "rake routes"
 

@@ -17,6 +17,17 @@ platforms :jruby do
   gem 'warbler'
 end
 
+gem "devise"
+gem "jquery-rails"
+gem 'prawn', :git => "git://github.com/sandal/prawn.git", :tag => '0.11.1', :submodules => true
+gem 'spreadsheet'
+gem 'rubyzip'
+gem 'mail'
+gem 'jruby-openssl'
+gem 'resque'
+gem 'redis'
+gem 'redis-namespace'
+gem 'vegas'
 
 # Use unicorn as the web server
 # gem 'unicorn'

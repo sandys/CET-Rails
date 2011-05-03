@@ -1,0 +1,21 @@
+<% title "Contracts" %>
+
+<h4> Create new Contract Entry</h4>
+
+<% unless @contracts.blank? or current_user.blank? %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Phone</th>
+  </tr>
+  <% for contract in @contracts %>
+    <tr>
+      <td><%= contract.name %></td>
+      <td><%= contract.phone %></td>
+      <td><%= link_to "Edit", edit_contract_path(contract) %></td>
+    </tr>
+  <% end %>
+</table>
+<% end %>
+
+<p><%= link_to "New Contract", new_contract_path %></p>

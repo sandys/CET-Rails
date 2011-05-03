@@ -1,0 +1,133 @@
+<%= form_for @contract do |f| %>
+  <%= f.error_messages %>
+  
+  <%= field_set_tag "Contract Information" do %>
+    <p>
+      <%= label_tag 'batch_location', "Batch Location" %>
+      <%=  select_box('batch[location]', @locations) %>
+    </p>
+   
+    <span>
+      <%= label_tag 'batch_date', "Batch Date" %>
+      <%#=  date_select('batch', 'date') %>
+      <%= text_field_tag "batch[date]", "" %>
+    </span>
+    
+    <span>
+      <%= label_tag 'sales_txn_date', "Txn Date" %>
+      <%= text_field_tag "sales[txn_date]", "" %>
+    </span>
+    <br />
+    <br />
+    <span>
+      <%= label_tag 'sale_type', "Sales Type" %>
+      <%=  select_box('sales[type]', []) %>
+    </span>
+    
+    <span>
+      <%= label_tag 'sale_need', "Sales Need" %>
+      <%=  select_box('sales[need]', @sales_need) %>
+    </span>
+    
+    <p>
+      <%= label_tag 'sale_txn_type', "Txn Type" %>
+      <%=  select_box('sales[txn_type]', []) %>
+    </p>
+  <% end %>
+  
+  <br />
+  <br />
+  <%= field_set_tag "Sales Information"  do %>
+    <p>
+      <%= label_tag 'sales_date', "Sales Date" %>
+      <%= text_field_tag "sales[date]", "" %>
+    </p>
+    
+    <p>
+      <%= label_tag 'sales_leadsource', "Lead Source" %>
+      <%=  select_box('sales[lead_source]', []) %>
+    </p>
+    
+    <span>
+      <%= label_tag 'sales_primary_counselor', "Primary Counselor" %>
+      <%=  select_box('sales[primary_counselor]', []) %>
+    </span>
+    
+    <span>
+      <%= label_tag 'sales_secondary_counselor_1', "Secondary Counselor 1" %>
+      <%=  select_box('sales[secondary_counselor_1]', []) %>
+    </span>
+    <br />
+    <br />
+    
+    <span>
+      <%= label_tag 'sales_secondary_counselor_2', "Secondary Counselor 2" %>
+      <%=  select_box('sales[secondary_counselor_2]', []) %>
+    </span>
+    
+    <span>
+      <%= label_tag 'sales_secondary_counselor_3', "Secondary Counselor 3" %>
+      <%=  select_box('sales[secondary_counselor_3]', []) %>
+    </span>
+  <% end %>
+  
+  <br />
+  <br />
+  
+  <table class="customers">
+    <tbody>
+      <tr>
+        <th>Type</th>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Last Name</th>
+        <th>Zipcode</th>
+        <th>Phone</th>
+        <th>Validate</th>
+        <th>HMIS Validation</th>
+        <th>USPS Validation</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>DOB [mm/dd/yyyy]</th>
+        <th>DOD [mm/dd/yyyy]</th>
+        <th>SSN</th>
+      </tr>
+      <% (1..10).each do |item| %>
+        <%= render :partial => "personal_detail", :layout => false, :locals => {:item => item} %>
+      <% end %>
+      
+    </tbody>
+  </table>
+  
+  <br />
+  <br />
+  
+  <table class="customers">
+    <tbody>
+      <tr>
+        <th>Item CD search</th>
+        <th>Item Desc search</th>
+        <th>Category code</th>
+        <th>Group code</th>
+        <th>HMIS search</th>
+        <th>HMIS item list</th>
+        <th>Final item code</th>
+        <th>Final item Desc</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Discount%</th>
+        <th>Discount</th>
+        <th>Discount reason</th>
+        <th>Cost</th>
+        <th>Sales need</th>
+      </tr>
+      <% (1..10).each do |item| %>
+        <%= render :partial => "item_detail", :layout => false, :locals => {:item => item} %>
+      <% end %>
+      
+    </tbody>
+  </table>
+  
+  <p><%= f.submit "Save Contract Entry" %></p>
+<% end %>
