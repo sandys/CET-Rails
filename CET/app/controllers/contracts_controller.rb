@@ -49,4 +49,20 @@ class ContractsController < ApplicationController
        format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sales_txn_types } }
      end
   end  
+  
+  def sales_counselor
+    sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
+    @sales_counselor = sales_type_id.blank? ? [] : HMIS::get_sales_counselor(sales_type_id)
+     respond_to do |format|
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sales_counselor } }
+     end
+  end
+  
+  def sales_lead_source
+    sales_txn_type_id = params[:sales_txn_type_id].blank? ? nil : params[:sales_txn_type_id]
+    @lead_sources = sales_txn_type_id.blank? ? [] : HMIS::get_sales_lead_source(sales_txn_type_id)
+     respond_to do |format|
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @lead_sources } }
+     end
+  end
 end

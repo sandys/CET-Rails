@@ -9,6 +9,8 @@ CET::Application.routes.draw do
     collection do 
       post 'sales_type' 
       post "sales_txn_type"
+      post "sales_counselor"
+      post "sales_lead_source"
     end
   end
 

@@ -7,7 +7,7 @@
       <%=  select_box('batch[location]', @locations) %>
     </p>
    
-   <p>
+    <p>
       <%= label_tag 'batch_date', "Batch Date" %>
       <%#=  date_select('batch', 'date') %>
       <%= text_field_tag "batch[date]", "" %>
@@ -15,7 +15,7 @@
     
     <p>
       <%= label_tag 'sales_txn_date', "Txn Date" %>
-      <%= text_field_tag "sales[txndate]", "" %>
+      <%= text_field_tag "sales[txn_date]", "" %>
     </p>
     
     <p>
@@ -23,17 +23,55 @@
       <%=  select_box('sales[type]', []) %>
     </p>
     
-     <p>
+    <p>
       <%= label_tag 'sale_need', "Sales Need" %>
       <%=  select_box('sales[need]', @sales_need) %>
     </p>
     
     <p>
-      <%= label_tag 'sale_txntype', "Txn Type" %>
-      <%=  select_box('sales[txntype]', []) %>
+      <%= label_tag 'sale_txn_type', "Txn Type" %>
+      <%=  select_box('sales[txn_type]', []) %>
     </p>
   <% end %>
   
+  <br />
+  <br />
+  <% field_set_tag "Sales Information"  do %>
+    <p>
+      <%= label_tag 'sales_date', "Sales Date" %>
+      <%= text_field_tag "sales[date]", "" %>
+    </p>
+    
+    <p>
+      <%= label_tag 'sales_leadsource', "Lead Source" %>
+      <%=  select_box('sales[lead_source]', []) %>
+    </p>
+    
+    <p>
+      <%= label_tag 'sales_primary_counselor', "Primary Counselor" %>
+      <%=  select_box('sales[primary_counselor]', []) %>
+    </p>
+    
+    <p>
+      <%= label_tag 'sales_secondary_counselor_1', "Secondary Counselor 1" %>
+      <%=  select_box('sales[secondary_counselor_1]', []) %>
+    </p>
+    
+    <p>
+      <%= label_tag 'sales_secondary_counselor_2', "Secondary Counselor 2" %>
+      <%=  select_box('sales[secondary_counselor_2]', []) %>
+    </p>
+    
+    <p>
+      <%= label_tag 'sales_secondary_counselor_3', "Secondary Counselor 3" %>
+      <%=  select_box('sales[secondary_counselor_3]', []) %>
+    </p>
+  <% end %>
+  
+  <br />
+  <br />
+  
+  <% field_set_tag "Personal Information" do %> 
   <p>
     <%= f.label :name %>
     <%= f.text_field :name %>
@@ -42,5 +80,7 @@
     <%= f.label :phone %>
     <%= f.text_field :phone %>
   </p>
-  <p><%= f.submit %></p>
+  <% end %>
+  
+  <p><%= f.submit "Save Contract Entry" %></p>
 <% end %>
