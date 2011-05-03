@@ -11,6 +11,11 @@ CET::Application.routes.draw do
       post "sales_txn_type"
       post "sales_counselor"
       post "sales_lead_source"
+      post "item_group_code"
+      post "item_category_code"
+      post "payment_type"
+      post "interest_term"
+      post "interest_method"
     end
   end
 

@@ -1,3 +1,4 @@
+<% (1..15).each do |item| %>
 <tr class=<%= item%2 == 0 ? "alt" : ""%>>
 	<td>
 		<%= text_field_tag "item[][item_cd_search_#{item}]", "", :size => 6 %>
@@ -9,7 +10,7 @@
 		<%= select_box("item_category_code_#{item}", []) %>
 	</td>
 	<td>
-		<%= select_box("item_group_code_#{item}", []) %>
+		<%= select_box("item_group_code_#{item}", [], :class => "item_group_code") %>
 	</td>
 	<td>
 		<a id=<%= "item_find_#{item}" %> href="#">Find </a>
@@ -36,7 +37,7 @@
 		<%= text_field_tag "item[][discount_#{item}]", "", :size => 5  %>
 	</td>
 	<td>
-		<%= select_box("item_discount_reason_#{item}", []) %>
+		<%= select_box("item_discount_reason_#{item}", @discount_reason) %>
 	</td>
 	<td>
 		<%= text_field_tag "item[][cost_#{item}]", "", :size => 5, :limit => 10  %>
@@ -45,3 +46,4 @@
 		<%= select_box("item[][sale_need_#{item}]", @sales_need)%>
 	</td>
 </tr>
+<% end %>

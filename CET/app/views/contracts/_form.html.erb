@@ -4,7 +4,7 @@
   <%= field_set_tag "Contract Information" do %>
     <p>
       <%= label_tag 'batch_location', "Batch Location" %>
-      <%=  select_box('batch[location]', @locations) %>
+      <%=  select_box('batch[location]', @locations, :style => "width: 150px;") %>
     </p>
    
     <span>
@@ -93,10 +93,7 @@
         <th>DOD [mm/dd/yyyy]</th>
         <th>SSN</th>
       </tr>
-      <% (1..10).each do |item| %>
-        <%= render :partial => "personal_detail", :layout => false, :locals => {:item => item} %>
-      <% end %>
-      
+      <%= render :partial => "personal_detail", :layout => false%>
     </tbody>
   </table>
   
@@ -122,10 +119,62 @@
         <th>Cost</th>
         <th>Sales need</th>
       </tr>
-      <% (1..10).each do |item| %>
-        <%= render :partial => "item_detail", :layout => false, :locals => {:item => item} %>
-      <% end %>
-      
+      <%= render :partial => "item_detail", :layout => false%>
+    </tbody>
+  </table>
+  
+  <br />
+  <br />
+  
+  <table class="customers">
+    <tbody>
+      <tr>
+          <td><b>Terms</b></td>
+          <td><%= select_box("interest[term]", [], :style => "width: 200px;")%></td>
+          <td><b>Payment Start Date</b></td>
+          <td><%= text_field_tag "interest[payment_start_date]" %></td>
+          <td><b>Interest Method</b></td>
+          <td><%= select_box("interest[method]", [], :style => "width: 200px;" )%></td>
+      </tr>
+      <tr>
+          <td><b>Interest Rate</b></td>
+          <td><%= text_field_tag "interest[rate]" %></td>
+          <td><b>Days Interest Free</b></td>
+          <td><%= text_field_tag "interest[free_days]" %></td>
+          <td><b>Forgive Interest</b></td>
+          <td><%= text_field_tag "interest[forgive]" %></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <br />
+  <br />
+  
+  <table class="customers">
+    <tbody>
+      <tr>
+        <th>Down pymt date</th>
+        <th>Amount</th>
+        <th>Down pymt type</th>
+        <th>remarks</th>
+      </tr>
+      <%= render :partial => "payment", :layout => false%>
+    </tbody>
+  </table>
+  
+  
+  <br />
+  <br />
+  
+  <table class="customers">
+    <tbody>
+      <tr>
+        <th>Image names</th>
+        <th>Document type</th>
+        <th>Upload file</th>
+      </tr>
+      <%= render :partial => "file_upload", :layout => false%>
     </tbody>
   </table>
   

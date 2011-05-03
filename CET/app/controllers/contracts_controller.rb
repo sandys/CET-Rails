@@ -10,6 +10,8 @@ class ContractsController < ApplicationController
     @locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
     @name_types = HMIS::name_types()
+    @discount_reason = HMIS::get_discount_reason
+    @upload_type = HMIS::file_upload_type
   end
 
   def create
@@ -64,6 +66,46 @@ class ContractsController < ApplicationController
     @lead_sources = sales_txn_type_id.blank? ? [] : HMIS::get_sales_lead_source(sales_txn_type_id)
      respond_to do |format|
        format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @lead_sources } }
+     end
+  end
+  
+  def item_group_code
+    location_id = params[:location_id].blank? ? nil : params[:location_id]
+    @group_codes = location_id.blank? ? [] : HMIS::get_group_codes(location_id)
+     respond_to do |format|
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @group_codes } }
+     end
+  end
+  
+  def item_category_code
+    group_code_id = params[:group_code_id].blank? ? nil : params[:group_code_id]
+    @category_codes = group_code_id.blank? ? [] : HMIS::get_category_codes(group_code_id)
+     respond_to do |format|
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @category_codes } }
+     end
+  end
+  
+  def payment_type
+    sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
+    @payment_type = sales_type_id.blank? ? [] : HMIS::get_down_payment_type(sales_type_id)
+     respond_to do |format|
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @payment_type } }
+     end
+  end
+  
+  def interest_term
+    sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
+    @interest_term = sales_type_id.blank? ? [] : HMIS::get_interest_term(sales_type_id)
+     respond_to do |format|
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @interest_term } }
+     end
+  end
+  
+  def interest_method
+    sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
+    @interest_method = sales_type_id.blank? ? [] : HMIS::get_interest_method(sales_type_id)
+     respond_to do |format|
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @interest_method } }
      end
   end
 end

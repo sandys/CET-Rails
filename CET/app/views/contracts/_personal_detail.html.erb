@@ -1,3 +1,4 @@
+<% (1..10).each do |item| %>
 <tr class=<%= item%2 == 0 ? "alt" : ""%>>
 	<td>
 		<%= select_box("name_type_#{item}", @name_types, :include_blank => false) %>
@@ -45,3 +46,4 @@
 		<%= text_field_tag "contract[][ssn_#{item}]", "", :size => 3  %>
 	</td>
 </tr>
+<% end %>
