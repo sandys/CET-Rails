@@ -39,6 +39,17 @@ development:
   password: cet123
   #socket: /var/run/mysqld/mysqld.sock
 
+sss_development:
+  adapter: mysql 
+  encoding: utf8
+  reconnect: false
+  database: cet 
+  pool: 5
+  username: cet_user
+  password: cet_user
+  socket: /var/run/mysqld/mysqld.sock
+
+
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
