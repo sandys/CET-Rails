@@ -49,6 +49,16 @@ sss_development:
   password: cet_user
   socket: /var/run/mysqld/mysqld.sock
 
+aks_development:
+  adapter: mysql 
+  encoding: utf8
+  reconnect: false
+  database: cet_db 
+  pool: 5
+  username: cet
+  password: cet123
+  socket: /var/run/mysqld/mysqld.sock
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
