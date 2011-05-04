@@ -1,49 +1,49 @@
 <% (1..15).each do |item| %>
 <tr class=<%= item%2 == 0 ? "alt" : ""%>>
 	<td>
-		<%= text_field_tag "item[][item_cd_search_#{item}]", "", :size => 6 %>
+		<%= text_field_tag "contract[item][#{item}][item_cd_search]", "", :size => 6 %>
 	</td>
 	<td>
-		<%= text_field_tag "item[][item_desc__search_#{item}]", "", :size => 3  %>
+		<%= text_field_tag "contract[item][#{item}][item_desc__search]", "", :size => 3  %>
 	</td>
 	<td>
-		<%= select_box("item[][category_code_#{item}]", []) %>
+		<%= select_box("contract[item][#{item}][category_code]", []) %>
 	</td>
 	<td>
-		<%= select_box("item[][group_code_#{item}]", [], :class => "item_group_code") %>
+		<%= select_box("contract[item][#{item}][group_code]", [], :class => "item_group_code") %>
 	</td>
 	<td>
-		<a id=<%= "item_find_#{item}" %> href="#">Find </a>
+		<a id=<%= "item_find" %> href="#">Find </a>
 	</td>
 	<td>
-		<%= select_box("item[][list_#{item}]", []) %>
+		<%= select_box("contract[item][#{item}][list]", []) %>
 	</td>
 	<td>
-		<%= text_field_tag "item[][final_code_#{item}]", "", :size => 6  %>
+		<%= text_field_tag "contract[item][#{item}][final_code]", "", :size => 6  %>
 	</td>
 	<td>
-		<%= text_field_tag "item[][final_desc_#{item}]", "", :size => 10  %>
+		<%= text_field_tag "contract[item][#{item}][final_desc]", "", :size => 10  %>
 	</td>
 	<td>
-		<%= text_field_tag "item[][quantity_#{item}]", "", :size => 5 %>
+		<%= text_field_tag "contract[item][#{item}][quantity]", "", :size => 5 %>
 	</td>
 	<td>
-		<%= text_field_tag "item[][price_#{item}]", "", :size => 5  %>
+		<%= text_field_tag "contract[item][#{item}][price]", "", :size => 5  %>
 	</td>
 	<td>
-		<%= text_field_tag "item[][discount_percent_#{item}]", "", :size => 5  %>
+		<%= text_field_tag "contract[item][#{item}][discount_percent]", "", :size => 5  %>
 	</td>
 	<td>
-		<%= text_field_tag "item[][discount_#{item}]", "", :size => 5  %>
+		<%= text_field_tag "contract[item][#{item}][discount]", "", :size => 5  %>
 	</td>
 	<td>
-		<%= select_box("item[][discount_reason_#{item}]", @discount_reason) %>
+		<%= select_box("contract[item][#{item}][discount_reason]", @discount_reason) %>
 	</td>
 	<td>
-		<%= text_field_tag "item[][cost_#{item}]", "", :size => 5, :limit => 10  %>
+		<%= text_field_tag "contract[item][#{item}][cost]", "", :size => 5, :limit => 10  %>
 	</td>
 	<td>
-		<%= select_box("item[][sale_need_#{item}]", @sales_need)%>
+		<%= select_box("contract[item][#{item}][sale_need]", @sales_need)%>
 	</td>
 </tr>
 <% end %>

@@ -56,12 +56,9 @@ $(function() {
   });
   
   $(".item_group_code").change(function() {
-    var id = this.id.replace(/\D+/, "")
+    var id = this.id.match(/\d+/)[0];
     $.post('item_category_code', {group_code_id : id }, function(data) {
-      $("#item__category_code_" + id).html(data);
+      $("#contract_item_"+id+"_category_code").html(data);
     });
   })
-  
-  
-  
 })

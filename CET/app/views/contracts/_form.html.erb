@@ -1,5 +1,15 @@
-<%= form_for @contract do |f| %>
-  <%= f.error_messages %>
+<%= form_for @contract, :html => { :multipart => true } do |f| %>
+  <% if @contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+      <% @contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   
   <%= field_set_tag "Contract Information" do %>
     <p>
@@ -8,14 +18,14 @@
       <%= hidden_field_tag "hmis_url", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis" %>
     </p>
     <span>
-      <%= label_tag 'contract_no', "Contract No" %>
-      <%= text_field_tag "contract[contract_no]", "", :required => true %>
+      <%= f.label 'contract_no', "Contract No" %>
+      <%= f.text_field :contract_no %>
     </span>
     <span>
-      <%= label_tag 'contract_location_id', "Batch Location" %>
-      <%#= f.select("location_id", options_for_select(@locations), { :include_blank => true })
+      <%= f.label 'location_id', "Batch Location" %>
+      <%= f.select("location_id", options_for_select(@locations), { :include_blank => true })
 %>
-      <%=  select_box('contract[location_id]', @locations) %>
+      <%#=  select_box('contract[location_id]', @locations) %>
     </span>
     
    <br />

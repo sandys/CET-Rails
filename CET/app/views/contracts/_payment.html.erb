@@ -1,16 +1,16 @@
 <% (1..3).each do |item| %>
 <tr class=<%= item%2 == 0 ? "alt" : ""%>>
 	<td>
-		<%= text_field_tag "payment[][date_#{item}]", "", :size => 10, :class => "down_payment_date" %>
+		<%= text_field_tag "contract[payment][#{item}][date]", "", :size => 10, :class => "down_payment_date" %>
 	</td>
 	<td>
-		<%= text_field_tag "payment[][amount_#{item}]", "", :size => 10%>
+		<%= text_field_tag "contract[payment][#{item}][amount]", "", :size => 10%>
 	</td>
 	<td>
-		<%= select_box("payment[][type_#{item}]", [], :style => "width: 270px;", :class => "down_payment_type") %>
+		<%= select_box("contract[payment][#{item}][type]", [], :style => "width: 270px;", :class => "down_payment_type") %>
 	</td>
 	<td>
-		<%= text_field_tag "payment[][remarks_#{item}]", "", :size => 10%>
+		<%= text_field_tag "contract[payment][#{item}][remarks]", "", :size => 10%>
 	</td>
 </tr>
 <% end %>

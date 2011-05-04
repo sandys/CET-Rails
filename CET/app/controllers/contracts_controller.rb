@@ -16,7 +16,7 @@ class ContractsController < ApplicationController
 
   def create
     @contract = current_user.contracts.new(params[:contract])
-    @contract.data = JSON.parse(params.to_json)
+    @contract.data = JSON.parse(params[:contract].to_json)
     respond_to do |format|
       if @contract.save
         #@contract.async_contract_entry(current_user.id)
