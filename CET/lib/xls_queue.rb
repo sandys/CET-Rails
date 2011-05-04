@@ -3,6 +3,8 @@ class XlsQueue
 
   def self.perform(contract_id)
     contract = ActiveRecord::Base::Contract.find(contract_id)
-    GenerateContract::XLS.create(contract)
+    user = ActiveRecord::Base::User.find(contract.user_id)
+    data = ActiveSupport::JSON.decode(contract.data.to_s)
+    GenerateContract::XLS.create(data, user)
   end
 end

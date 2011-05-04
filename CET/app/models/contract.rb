@@ -7,11 +7,27 @@ class Contract < ActiveRecord::Base
   attr_accessible :contract_no, :location_id
   belongs_to :user
   
-  def async_contract_entry(user_id)
-    Resque.enqueue(PdfQueue, self.id)
+  
+  before_save :json_serialize
+  #after_save  :json_deserialize
+  #after_find  :json_deserialize
+
+  def json_serialize  
+  self.data = ActiveSupport::JSON.encode(self.attributes['data'])
+  end
+
+  def json_deserialize
+  unless (self.attributes['data'].nil?)
+    self.data = ActiveSupport::JSON.decode(self.attributes['data'].to_s)
+  end
+  end
+
+  
+  def async_contract_entry
+    #Resque.enqueue(PdfQueue, self.id)
     Resque.enqueue(XlsQueue, self.id)
-    Resque.enqueue(CompressQueue, self.id)
-    Resque.enqueue(MailQueue, self.id, user_id)
+    #Resque.enqueue(CompressQueue, self.id)
+    #Resque.enqueue(MailQueue, self.id, user_id)
   end
   
   #def create_pdf

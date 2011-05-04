@@ -10,5 +10,6 @@ require 'lib/mail_queue'
 require 'lib/hmis'
 require 'resque'
 require 'resque/tasks'
+require 'ostruct'
 
 CET::Application.load_tasks

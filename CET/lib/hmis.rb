@@ -13,7 +13,7 @@ module HMIS
     end
 
     def get_sales_txn_type(sale_type_id = nil)
-      {"ANPNAN Atneed (PN ->AN)"=> 1, 'New Contract'=> 2, "Atneed (True)" => 3, "unfunded" => 4, "PN NSMG Trust (New Sale)" => 5}
+      ["ANPNAN Atneed (PN ->AN)", 'New Contract', "Atneed (True)", "unfunded" , "PN NSMG Trust (New Sale)" ]
     end
     
     def get_sales_lead_source(sales_txn_type = nil)

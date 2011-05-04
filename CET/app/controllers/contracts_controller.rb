@@ -16,10 +16,10 @@ class ContractsController < ApplicationController
 
   def create
     @contract = current_user.contracts.new(params[:contract])
-    @contract.data = JSON.parse(params[:contract].to_json)
+    @contract.data = params[:contract] #JSON.parse(params[:contract].to_json)
     respond_to do |format|
       if @contract.save
-        #@contract.async_contract_entry(current_user.id)
+        @contract.async_contract_entry()
         format.html{ redirect_to contracts_url, :notice => "Successfully created contract." }
       else
         #flash[:error] = "Error Occured"
@@ -40,7 +40,7 @@ class ContractsController < ApplicationController
   def update
     @contract = current_user.contracts.find(params[:id])
     respond_to do |format|
-      if @contract.update_attributes(params[:contract])
+      if @contract.update_attributes(:data => params[:contract])
         #@contract.async_contract_entry(current_user.id)
         format.html{ redirect_to contracts_url, :notice => "Successfully updatedcreated contract." }
       else
