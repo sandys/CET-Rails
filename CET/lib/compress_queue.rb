@@ -3,7 +3,9 @@ class CompressQueue
 
   def self.perform(contract_id)
     contract = ActiveRecord::Base::Contract.find(contract_id)
-    zip = GenerateContract::ZIP.new(contract)
+    user = ActiveRecord::Base::User.find(contract.user_id)
+    data = ActiveSupport::JSON.decode(contract.data.to_s)
+    zip = GenerateContract::ZIP.new(data)
     zip.create
   end
 end

@@ -5,11 +5,63 @@ require 'zip/zipfilesystem'
 module GenerateContract
 
 	class PDF
-		def self.create(contract)
+		def self.create(contract, user)
 			pdf = Prawn::Document.new(:page_layout => :portrait, :left_margin => 1.cm, :right_margin => 1.cm, :top_margin => 1.cm,  :bottom_margin => 1.cm, :page_size => 'A4')
-			pdf.text "Your Name: #{contract.name}"
-			pdf.move_down(20)
-			pdf.text "Mobile Number: #{contract.phone}"
+			pdf.text 'Location: #{contract["location_id"]}, Batch_Date: #{contract["sales_batch_date"]}, Txn_Date: #{contract["sales_txn_date"]}'
+			pdf.text 'Contract Number: ##{contract["contract_no"]}'
+			pdf.move_down(5)
+			pdf.text 'Sales Type: #{contract["sales_type"]}, User Name: #{user.email}, Password: '
+			pdf.move_down(5)
+			pdf.text 'Txn_Type: #{contract["sales_txn_type"]}, HMIS URL: #{contract["hmis_url"]}'
+			pdf.move_down(5)
+			pdf.text 'Sales Date: #{contract["sales_date"]}, Terms: #{contract["interest_term"]}, Payment Start Date: #{contract["interest_payment_start_date"]}, Interest Method: #{contract["interest_method"]}'
+			pdf.move_down(5)
+			pdf.text 'Sales Need: #{contract["sales_need"]}, Interest Rate: #{contract["interest_rate"]}, Days Interest Free: #{contract["interest_free_days"]}, Forgive Interest: #{contract["interest_forgive"]}'
+			pdf.move_down(5)
+			pdf.text 'Lead Source: #{contract["sales_lead_source"]}'
+			pdf.move_down(5)
+			pdf.text 'Primary Arranger: #{contract["sales_primary_counselor"]}, Secondary Arranger1: #{contract["sales_secondary_counselor_1"]}, Secondary Arranger2: #{contract["sales_secondary_counselor_2"]}, Secondary Arranger3: #{contract["sales_secondary_counselor_3"]}'
+			pdf.move_down(5)
+			pdf.text "Name Type, First Name, Middle Name, Last Name, Address, City, State, Zip, Phone, DOB, DOD, SS No., Name Id"
+			contract["personal"].each do |key,value| 
+				unless (value['first_name'].blank? and value['last_name'].blank?)
+					pdf.text '#{value["name_type"]}, #{value["first_name"]}, #{value["middle_name"]}, #{value["last_name"]}, #{value["address"]}, #{value["city"]}, #{value["state"]}, #{value["zipcode"]}, #{value["phone"]}, #{value["dob"]}, #{value["dod"]}, #{value["ssn"]}'
+					pdf.move_down(5)
+				else
+					pdf.text ""
+				end
+			end
+			
+			pdf.text "Item Cd, Item Descr, Quantity, Price, Discount, Discount Reason, Sales Need"
+			contract["item"].each do |key,value| 
+				unless value['final_code'].blank? 
+					pdf.text '#{value["final_code"]}, #{value["final_desc"]}, #{value["quantity"]}, #{value["price"]}, #{value["discount"]}, #{value["discount_reason"]}, #{value["sales_need"]}'
+					pdf.move_down(5)
+				else
+					pdf.text ""
+				end
+			end
+			
+			pdf.text "Down Pymt Dt, Amount, Down Pymt_Type, Remarks"
+			contract["payment"].each do |key,value| 
+				unless value['amount'].blank? 
+					pdf.text '#{value["date"]}   #{value["amount"]}   #{value["type"]}  #{value["remark"]}'
+					pdf.move_down(5)
+				else
+					pdf.text ""
+				end
+			end
+			
+			pdf.text "Image Name, Document Type, Uploaded File"
+			contract["file"].each do |key,value| 
+				unless value['image_name'].blank? 
+					pdf.text '#{value["image_name"]}  #{value["upload_type"]}'
+					pdf.move_down(5)
+				else
+					pdf.text "" 
+				end
+			end
+			
 			pdf.render_file(Rails.root.join('files/pdf',"#{contract['location_id']}_#{contract['contract_no']}.pdf"))
 		end
 	end
@@ -72,7 +124,7 @@ module GenerateContract
 		attr_accessor :list_of_file_paths, :zip_file_path
 
 		def initialize(contract)
-			filename = "#{contract.id}_#{contract.name}"
+			filename = "#{contract['location_id']}_#{contract['contract_no']}"
       @zip_file_path = Rails.root.join('files/compress', "#{filename}.zip")
       @list_of_file_paths = [Rails.root.join('files/pdf',"#{filename}.pdf"), Rails.root.join('files/xls', "#{filename}.xls")]
 		end
