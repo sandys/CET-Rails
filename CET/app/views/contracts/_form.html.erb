@@ -15,7 +15,7 @@
     <p>
       <%= label_tag 'hmis_url', "HMIS URL" %>
       <%= text_field_tag "HMIS[url]", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis", :disabled => true, :size => 50 %>
-      <%= hidden_field_tag "hmis_url", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis" %>
+      <%= hidden_field_tag "contract[hmis_url]", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis" %>
     </p>
     <span>
       <%= f.label 'contract_no', "Contract No" %>
@@ -32,29 +32,29 @@
    <br />
    
     <span>
-      <%= label_tag 'sales_batch_date', "Batch Date" %>
-      <%= text_field_tag "sales[batch_date]", "" %>
+      <%= label_tag 'contract_sales_batch_date', "Batch Date" %>
+      <%= text_field_tag "contract[sales_batch_date]", "" %>
     </span>
     
     <span>
-      <%= label_tag 'sales_txn_date', "Txn Date" %>
-      <%= text_field_tag "sales[txn_date]", "" %>
+      <%= label_tag 'contract_sales_txn_date', "Txn Date" %>
+      <%= text_field_tag "contract[sales_txn_date]", "" %>
     </span>
     <br />
     <br />
     <span>
-      <%= label_tag 'sale_type', "Sales Type" %>
-      <%=  select_box('sales[type]', []) %>
+      <%= label_tag 'contract_sale_type', "Sales Type" %>
+      <%=  select_box('contract[sales_type]', []) %>
     </span>
     
     <span>
-      <%= label_tag 'sale_need', "Sales Need" %>
-      <%=  select_box('sales[need]', @sales_need, {}) %>
+      <%= label_tag 'contract_sale_need', "Sales Need" %>
+      <%=  select_box('contract[sales_need]', @sales_need, {}) %>
     </span>
     
     <p>
-      <%= label_tag 'sale_txn_type', "Txn Type" %>
-      <%=  select_box('sales[txn_type]', []) %>
+      <%= label_tag 'contract_sale_txn_type', "Txn Type" %>
+      <%=  select_box('contract[sales_txn_type]', []) %>
     </p>
   <% end %>
   
@@ -62,35 +62,35 @@
   <br />
   <%= field_set_tag "Sales Information"  do %>
     <p>
-      <%= label_tag 'sales_date', "Sales Date" %>
-      <%= text_field_tag "sales[date]", "" %>
+      <%= label_tag 'contract_sales_date', "Sales Date" %>
+      <%= text_field_tag "contract[sales_date]", "" %>
     </p>
     
     <p>
-      <%= label_tag 'sales_leadsource', "Lead Source" %>
-      <%=  select_box('sales[lead_source]', []) %>
+      <%= label_tag 'contract_sales_leadsource', "Lead Source" %>
+      <%=  select_box('contract[sales_lead_source]', []) %>
     </p>
     
     <span>
-      <%= label_tag 'sales_primary_counselor', "Primary Counselor" %>
-      <%=  select_box('sales[primary_counselor]', []) %>
+      <%= label_tag 'contract_sales_primary_counselor', "Primary Counselor" %>
+      <%=  select_box('contract[sales_primary_counselor]', []) %>
     </span>
     
     <span>
-      <%= label_tag 'sales_secondary_counselor_1', "Secondary Counselor 1" %>
-      <%=  select_box('sales[secondary_counselor_1]', []) %>
+      <%= label_tag 'contract_sales_secondary_counselor_1', "Secondary Counselor 1" %>
+      <%=  select_box('contract[sales_secondary_counselor_1]', []) %>
     </span>
     <br />
     <br />
     
     <span>
-      <%= label_tag 'sales_secondary_counselor_2', "Secondary Counselor 2" %>
-      <%=  select_box('sales[secondary_counselor_2]', []) %>
+      <%= label_tag 'contract_sales_secondary_counselor_2', "Secondary Counselor 2" %>
+      <%=  select_box('contract[sales_secondary_counselor_2]', []) %>
     </span>
     
     <span>
-      <%= label_tag 'sales_secondary_counselor_3', "Secondary Counselor 3" %>
-      <%=  select_box('sales[secondary_counselor_3]', []) %>
+      <%= label_tag 'contract_sales_secondary_counselor_3', "Secondary Counselor 3" %>
+      <%=  select_box('contract[sales_secondary_counselor_3]', []) %>
     </span>
   <% end %>
   
@@ -153,19 +153,19 @@
     <tbody>
       <tr>
           <td><b>Terms</b></td>
-          <td><%= select_box("interest[term]", [], :style => "width: 200px;")%></td>
+          <td><%= select_box("contract[interest_term]", [], :style => "width: 200px;")%></td>
           <td><b>Payment Start Date</b></td>
-          <td><%= text_field_tag "interest[payment_start_date]" %></td>
+          <td><%= text_field_tag "contract[interest_payment_start_date]" %></td>
           <td><b>Interest Method</b></td>
-          <td><%= select_box("interest[method]", [], :style => "width: 200px;" )%></td>
+          <td><%= select_box("contract[interest_method]", [], :style => "width: 200px;" )%></td>
       </tr>
       <tr>
           <td><b>Interest Rate</b></td>
-          <td><%= text_field_tag "interest[rate]" %></td>
+          <td><%= text_field_tag "contract[interest_rate]" %></td>
           <td><b>Days Interest Free</b></td>
-          <td><%= text_field_tag "interest[free_days]" %></td>
+          <td><%= text_field_tag "contract[interest_free_days]" %></td>
           <td><b>Forgive Interest</b></td>
-          <td><%= text_field_tag "interest[forgive]" %></td>
+          <td><%= text_field_tag "contract[interest_forgive]" %></td>
       </tr>
     </tbody>
   </table>
