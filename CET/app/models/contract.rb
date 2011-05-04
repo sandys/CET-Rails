@@ -4,7 +4,8 @@ class Contract < ActiveRecord::Base
   validates_numericality_of :contract_no, :on => [:create, :update]
   validates_numericality_of :location_id, :on => [:create, :update]
   
-  attr_accessible :date
+  attr_accessible :contract_no, :location_id
+  belongs_to :user
   
   def async_contract_entry(user_id)
     Resque.enqueue(PdfQueue, self.id)

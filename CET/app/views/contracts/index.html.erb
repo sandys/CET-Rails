@@ -10,8 +10,8 @@
   </tr>
   <% for contract in @contracts %>
     <tr>
-      <td><%= contract.name %></td>
-      <td><%= contract.phone %></td>
+      <td><%= contract.contract_no %></td>
+      <td><%= contract.location_id %></td>
       <td><%= link_to "Edit", edit_contract_path(contract) %></td>
     </tr>
   <% end %>

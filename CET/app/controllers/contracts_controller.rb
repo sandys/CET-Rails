@@ -2,11 +2,11 @@ class ContractsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :edit]
   
   def index
-    @contracts = Contract.all
+    @contracts = current_user.contracts.all
   end
 
   def new
-    @contract = Contract.new
+    @contract = current_user.contracts.new
     @locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
     @name_types = HMIS::name_types()
@@ -15,26 +15,38 @@ class ContractsController < ApplicationController
   end
 
   def create
-    @contract = Contract.new(params[:contract])
+    @contract = current_user.contracts.new(params[:contract])
     @contract.data = JSON.parse(params.to_json)
-    if @contract.save
-      #@contract.async_contract_entry(current_user.id)
-      redirect_to contracts_url, :notice => "Successfully created contract."
-    else
-      render :action => 'new'
-    end
+    respond_to do |format|
+      if @contract.save
+        #@contract.async_contract_entry(current_user.id)
+        format.html{ redirect_to contracts_url, :notice => "Successfully created contract." }
+      else
+        #flash[:error] = "Error Occured"
+        format.html{ redirect_to(:action => "new") }
+      end
+     end
   end
 
   def edit
-    @contract = Contract.find(params[:id])
+    @contract = current_user.contracts.find(params[:id])
+    @locations = HMIS::locations(current_user.email)
+    @sales_need = HMIS::sales_need()
+    @name_types = HMIS::name_types()
+    @discount_reason = HMIS::get_discount_reason
+    @upload_type = HMIS::file_upload_type
   end
 
   def update
-    @contract = Contract.find(params[:id])
-    if @contract.update_attributes(params[:contract])
-      redirect_to contracts_url, :notice  => "Successfully updated contract."
-    else
-      render :action => 'edit'
+    @contract = current_user.contracts.find(params[:id])
+    respond_to do |format|
+      if @contract.update_attributes(params[:contract])
+        #@contract.async_contract_entry(current_user.id)
+        format.html{ redirect_to contracts_url, :notice => "Successfully updatedcreated contract." }
+      else
+        #flash[:error] = "Error Occured"
+        format.html{ redirect_to(:action => "edit") }
+      end
     end
   end
   
