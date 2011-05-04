@@ -1,8 +1,10 @@
 class CreateContracts < ActiveRecord::Migration
   def self.up
     create_table :contracts do |t|
-      t.string :name
-      t.string :phone
+      t.integer :user_id
+      t.integer :contract_no
+      t.integer :location_id
+      t.text :data
       t.timestamps
     end
   end

@@ -1,7 +1,7 @@
 module HMIS
   class << self
     def locations(user_id = nil)
-      {'101 Memorial House'=> 1, '102 Memorial House'=> 2}
+      {'101 Memorial House'=> 115, '102 Memorial House'=> 112}
     end
 
     def get_sales_type(location_id = nil)

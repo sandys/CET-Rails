@@ -3,14 +3,27 @@
   
   <%= field_set_tag "Contract Information" do %>
     <p>
-      <%= label_tag 'batch_location', "Batch Location" %>
-      <%=  select_box('batch[location]', @locations, :style => "width: 150px;") %>
+      <%= label_tag 'hmis_url', "HMIS URL" %>
+      <%= text_field_tag "HMIS[url]", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis", :disabled => true, :size => 50 %>
+      <%= hidden_field_tag "hmis_url", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis" %>
     </p>
+    <span>
+      <%= label_tag 'contract_no', "Contract No" %>
+      <%= text_field_tag "contract[contract_no]", "", :required => true %>
+    </span>
+    <span>
+      <%= label_tag 'contract_location_id', "Batch Location" %>
+      <%= f.select("location_id", options_for_select(@locations), { :include_blank => true })
+%>
+      <%#=  select_box('contract[location_id]', @locations) %>
+    </span>
+    
+   <br />
+   <br />
    
     <span>
-      <%= label_tag 'batch_date', "Batch Date" %>
-      <%#=  date_select('batch', 'date') %>
-      <%= text_field_tag "batch[date]", "" %>
+      <%= label_tag 'sales_batch_date', "Batch Date" %>
+      <%= text_field_tag "sales[batch_date]", "" %>
     </span>
     
     <span>
@@ -26,7 +39,7 @@
     
     <span>
       <%= label_tag 'sale_need', "Sales Need" %>
-      <%=  select_box('sales[need]', @sales_need) %>
+      <%=  select_box('sales[need]', @sales_need, {}) %>
     </span>
     
     <p>

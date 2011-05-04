@@ -7,7 +7,7 @@
 		<%= text_field_tag "payment[][amount_#{item}]", "", :size => 10%>
 	</td>
 	<td>
-		<%= select_box("payment_type_#{item}", [], :style => "width: 270px;", :class => "down_payment_type") %>
+		<%= select_box("payment[][type_#{item}]", [], :style => "width: 270px;", :class => "down_payment_type") %>
 	</td>
 	<td>
 		<%= text_field_tag "payment[][remarks_#{item}]", "", :size => 10%>

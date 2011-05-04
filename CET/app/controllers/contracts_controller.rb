@@ -16,8 +16,9 @@ class ContractsController < ApplicationController
 
   def create
     @contract = Contract.new(params[:contract])
+    @contract.data = JSON.parse(params.to_json)
     if @contract.save
-      @contract.async_contract_entry(current_user.id)
+      #@contract.async_contract_entry(current_user.id)
       redirect_to contracts_url, :notice => "Successfully created contract."
     else
       render :action => 'new'

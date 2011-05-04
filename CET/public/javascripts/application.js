@@ -3,14 +3,14 @@
 
 $(function() {
 
-  $("#batch_date").datepicker();
+  $("#sales_batch_date").datepicker();
   $("#sales_txn_date").datepicker();
   $("#sales_date").datepicker();
   $(".down_payment_date").datepicker();
   $("#interest_payment_start_date").datepicker();
     
-  $("#batch_location").change(function() {
-    var id = $('#batch_location').val();
+  $("#contract_location_id").change(function() {
+    var id = $("#contract_location_id").val();
     $.post('sales_type', {location_id : id }, function(data) {
       $("#sales_type").html(data);
     });
@@ -22,7 +22,7 @@ $(function() {
   });
   
   $("#sales_type").change(function() {
-    var id = $('#sales_type').val();
+    var id = $("#sales_type").val();
     $.post('sales_txn_type', {sales_type_id : id }, function(data) {
       $("#sales_txn_type").html(data);
     });
@@ -49,7 +49,7 @@ $(function() {
   });
   
   $("#sales_txn_type").change(function() {
-    var id = $('#sales_txn_type').val();
+    var id = $("#sales_txn_type").val();
     $.post('sales_lead_source', {sales_txn_type_id : id }, function(data) {
       $("#sales_lead_source").html(data);
     });
@@ -58,7 +58,7 @@ $(function() {
   $(".item_group_code").change(function() {
     var id = this.id.replace(/\D+/, "")
     $.post('item_category_code', {group_code_id : id }, function(data) {
-      $("#item_category_code_" + id).html(data);
+      $("#item__category_code_" + id).html(data);
     });
   })
   

@@ -4,10 +4,10 @@
 		<%= text_field_tag "file[][image_name_#{item}]", "", :size => 10 %>
 	</td>
 	<td>
-		<%= select_box("file_upload_type_#{item}", @upload_type, :style => "width: 270px;") %>
+		<%= select_box("file[][upload_type_#{item}]", @upload_type, :style => "width: 270px;") %>
 	</td>
 	<td>
-		<%= file_field_tag "file[upload_file_#{item}]" %>
+		<%= file_field_tag "file[][upload_file_#{item}]" %>
 	</td>
 </tr>
 <% end %>
