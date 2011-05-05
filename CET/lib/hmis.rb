@@ -56,5 +56,82 @@ module HMIS
 	    ["Account Adjustment Notes", "Accounting Copy", "Addendum FL Merch", "Affidavits", "AN Cemetery Contract", "AN Funeral Contract", "APD Authorization", "Assignment of PN Merchandise", "Auth for Cremation and Disposition", "Away from Home Documents (TPP)", "Bankruptcy Documents", "Burial Permits", "California Compliance Forms", "Cancellation Application", "Cancellation Request", "Cash Receipt", "Cemetery Correspondence", "Certificate of Credit", "Certificate of Performance", "Certificate of Services Received", "Certificate of Title of Stored Markers", "Change of Beneficiary", "Check Return Notice", "Collection Letters", "Compliance Checklist", "Contract Adjustments", "Contract Customer Correspondence", "Corporate Use, Trust Only", "Data Entry Worksheet", "Death Certificate", "Death Maturity Forms", "Down Payment", "Family Protection Plan Documents", "Floral Photo", "General Price List with AN and PN", "Grandchild Protection Documents", "Grantor Letters", "Ins Application or Ins Forms", "Installation WO", "Interment Order or Authorization", "Letters of Testamentary", "Loss Affidavit or Affidavit of Loss", "Marker", "MEMs (Making Everlasting Memories)", "PN Cemetery Contract", "PN Funeral Contract", "Power of Attorney", "Pre-Need to At-Need Worksheet", "Receipt for Delivery", "Recurring Credit Card Payments", "Refund Check or CC Reversal", "Report of Death Beneficiary", "Sales Solicitation Letters to Customer", "Transfer Forms", "Transit Permit", "Unfunded Documents", "Unfunded Selection Document ", "Withdrawal Checklist", "Write-Off Form"]
 	  end
 	  
+ #taken from NSMG.jsp (to figure out which function is called for which UI element) and GetHMISData.java
+ #in the jsp file, when any element is triggered, the javascript constructs a GET query of the type "/NSMG/GetHMISData?something='something'&menutype=somemenu
+ #in the .java file there is a function getData which switches on the "menutype" and takes the "something" as arguments to call the actual function
+    def import_get_location(hmis_user_id)
+      #default location
+      #"SELECT IFNULL(Default_Location,'') AS 'default_Location' FROM security_users  WHERE  Userid = '" + sHMISUserId + "';"
+
+      #location
+      #if default location === (super_user="999")
+      #"SELECT location.Location_Cd AS 'Code',location.Descr AS 'Descr' FROM location WHERE Location.Location_Type_Cd ='Location' AND 
+      #               location.Popup = 'Y' ORDER BY location.Descr"
+      #else "SELECT location.Location_Cd As 'Code',location.Descr AS 'Descr' FROM location,security_users_location WHERE 
+      #          location.Location_Cd = security_users_location.Location_Cd AND security_users_location.UserId='#{hmis_user_id}' AND  
+      #          location.Location_Type_Cd ='Location' AND location.Popup = 'Y' ORDER BY location.Descr"
+
+      # hash : {$Descr => $Code+"~"+$Descr}
+
+    end
+
+    def import_get_sales_type(hmis_user_id, location_id)
+      #*location_category
+      # select Location_Category from security_users where userid = '#{hmis_user_id}';
+      #*include_exclude (default='I')
+      #select Include_Exclude from inc_exclusion_tables where Table_Name='Sales_Type';
+      
+      #*sales_type
+      #if $location_category == "B"
+      #q = SELECT sales_type.sales_type_cd AS 'Code', sales_type.descr  AS 'Descr' FROM sales_type " + "WHERE ( sales_type.sales_type_cd <> 'History' ) 
+      #        AND  (sales_type.popup =  'Y') 
+      # else 
+      #q = SELECT  sales_type.sales_type_cd AS 'Code',sales_type.descr AS 'Descr' " + " FROM sales_type WHERE ( sales_type.sales_type_cd <> 'History' ) 
+      #    AND  (sales_type.popup =  'Y') " + "AND (sales_type.avail_for_locations = 'B' OR sales_type.avail_for_locations ='B')
+      #if $include_exclude == "E"
+      #q.= " AND sales_type.sales_type_cd NOT IN "
+      #else
+      #q.=" AND sales_type.sales_type_cd IN "
+      #
+      #q.=(select code_Value FROM location_code_inc_exclusion WHERE Location_Cd ='#{sLocationCd}' AND Code_Table='Sales_Type') order by sales_type.descr DESC
+
+      # hash : {$Descr => $Code+"~"+$Descr}
+    end
+
+    def import_get_txn_type(hmis_user_id, location_id, sales_type_id)
+      #*location_category
+      # select Location_Category from security_users where userid = '#{hmis_user_id}';
+
+      #*txn_type
+      #if $location_category == "B"
+      #q =  SELECT Txn_Type_Cd AS 'Code' ,Descr  AS 'Descr' FROM txn_type WHERE txn_type.Type = 'S' AND (txn_type.Sales_Action = 'A' OR txn_type.Sales_Action IS NULL)
+      #      AND Popup = 'Y'  AND Allow_Delivery <> 1
+      #else
+      #q =  SELECT  Txn_Type_Cd AS 'Code' ,Descr  AS 'Descr' FROM txn_type WHERE txn_type.Type = 'S' AND (txn_type.Sales_Action = 'A'OR txn_type.Sales_Action 
+      #     IS NULL) AND Popup ='Y' AND Allow_Delivery <> 1 AND (txn_type.Location_Availability = 'B' OR txn_type.Location_Availability ='B')
+      #
+      #q.= AND txn_type.Txn_Type_Cd NOT IN (SELECT Txn_Type_Cd FROM sales_type_txns_lead_source_combination WHERE Sales_Type_Cd='#{sales_type_id}' ORDER BY txn_type.descr DESC
+    end
+
+    def import_get_counselor(location_id, sales_type_id)
+      #*include_exclude (default='I')
+      #select Include_Exclude from inc_exclusion_tables where Table_Name='Sales_Counselor';
+      
+      #counselor_no
+      #q = SELECT sales_counselor.no AS 'Code',RTRIM(sales_counselor.name) AS 'Descr'  FROM sales_counselor  WHERE sales_counselor.Popup IN ('Y','N') 
+      #        AND sales_counselor.sales_counselor_type_cd NOT IN  (SELECT scte.sales_counselor_type_cd FROM sls_couns_type_exclusions scte  
+      #        WHERE scte.sales_type_cd = '#{sales_type_id}')
+      #if $include_exclude == "E"
+      #q.=AND (sales_counselor.Sales_Counselor_Id NOT IN
+      #else
+      #q.=AND (sales_counselor.Sales_Counselor_Id IN
+      #
+      #q.= ( SELECT  location_code_inc_exclusion.Code_Value FROM location_code_inc_exclusion WHERE location_code_inc_exclusion.Code_Table  = 'Sales_Counselor' 
+      #     AND location_code_inc_exclusion.location_Cd  = '#{sLocationCd}')) ORDER BY RTRIM(sales_counselor.name) DESC
+    end
+    def import_get_lead_src(location_id, sales_type_id, txn_type_id, sales_need_type_id)
+      #*include_exclude (default='I')
+      #select Include_Exclude from inc_exclusion_tables where Table_Name='Lead_Src';
+    end
   end
 end
