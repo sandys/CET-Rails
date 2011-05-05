@@ -18,7 +18,7 @@ module GenerateContract
 			pdf.move_down(5)
 			pdf.text "Sales Type: #{contract[:sales_type.to_s]}"
 			pdf.move_down(5)
-			pdf.text "User Name: #{user.email}, Password: "
+			pdf.text "User Name: #{contract[:username.to_s]}, Password: #{contract[:password.to_s]}"
 			pdf.move_down(5)
 			pdf.text "Txn_Type: #{contract[:sales_txn_type.to_s]}"
 			pdf.move_down(5)

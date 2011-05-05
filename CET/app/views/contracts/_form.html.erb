@@ -12,6 +12,14 @@
   <% end %>
   
   <%= field_set_tag "Contract Information" do %>
+    <span>
+      <%= label_tag 'contract_username', "HMIS Username" %>
+      <%= text_field_tag 'contract[username]' %>
+    </span>
+    <span>
+      <%#= label_tag 'contract_password', "Password" %>
+      <%= hidden_field_tag 'contract[password]' %>
+    </span>
     <p>
       <%= label_tag 'hmis_url', "HMIS URL" %>
       <%= text_field_tag "HMIS[url]", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis", :disabled => true, :size => 50 %>
@@ -23,8 +31,7 @@
     </span>
     <span>
       <%= f.label 'location_id', "Batch Location" %>
-      <%= f.select("location_id", options_for_select(@locations), { :include_blank => true })
-%>
+      <%= f.select("location_id", options_for_select(@locations), { :include_blank => true }) %>
       <%#=  select_box('contract[location_id]', @locations) %>
     </span>
     

@@ -1,5 +1,5 @@
 class ContractsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new, :edit]
+  before_filter :authenticate_user!, :only => [:index, :new, :edit]
   
   def index
     @contracts = current_user.contracts.all
