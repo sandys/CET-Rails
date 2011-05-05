@@ -25,9 +25,9 @@ class Contract < ActiveRecord::Base
   
   def async_contract_entry
     Resque.enqueue(PdfQueue, self.id)
-    #Resque.enqueue(XlsQueue, self.id)
-    #Resque.enqueue(CompressQueue, self.id)
-    #Resque.enqueue(MailQueue, self.id)
+    Resque.enqueue(XlsQueue, self.id)
+    Resque.enqueue(CompressQueue, self.id)
+    Resque.enqueue(MailQueue, self.id)
   end
   
   #def create_pdf
