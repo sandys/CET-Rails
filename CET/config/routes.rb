@@ -16,6 +16,8 @@ CET::Application.routes.draw do
       post "payment_type"
       post "interest_term"
       post "interest_method"
+      post "user_password"
+      post "user_location"
     end
   end
 

@@ -14,7 +14,7 @@
   <%= field_set_tag "Contract Information" do %>
     <span>
       <%= label_tag 'contract_username', "HMIS Username" %>
-      <%= text_field_tag 'contract[username]' %>
+      <%= select_box('contract[username]', @users) %>
     </span>
     <span>
       <%#= label_tag 'contract_password', "Password" %>
@@ -31,7 +31,7 @@
     </span>
     <span>
       <%= f.label 'location_id', "Batch Location" %>
-      <%= f.select("location_id", options_for_select(@locations), { :include_blank => true }) %>
+      <%= f.select("location_id", [], { :include_blank => true }) %>
       <%#=  select_box('contract[location_id]', @locations) %>
     </span>
     
@@ -59,10 +59,10 @@
       <%=  select_box('contract[sales_need]', @sales_need, {}) %>
     </span>
     
-    <p>
+    <span>
       <%= label_tag 'contract_sale_txn_type', "Txn Type" %>
       <%=  select_box('contract[sales_txn_type]', []) %>
-    </p>
+    </span>
   <% end %>
   
   <br />

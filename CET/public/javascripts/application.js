@@ -8,6 +8,17 @@ $(function() {
   $("#contract_sales_date").datepicker();
   $(".down_payment_date").datepicker();
   $("#contract_interest_payment_start_date").datepicker();
+  
+  $("#contract_username").change(function() {
+    var id = $(this).val();
+    $.post('user_password', {user_id : id }, function(data) {
+      $("#contract_password").val(data);
+    });
+    
+    $.post('user_location', {user_id : id }, function(data) {
+      $("#contract_location_id").html(data);
+    });
+  });
     
   $("#contract_location_id").change(function() {
     var id = $("#contract_location_id").val();
@@ -60,5 +71,5 @@ $(function() {
     $.post('item_category_code', {group_code_id : id }, function(data) {
       $("#contract_item_"+id+"_category_code").html(data);
     });
-  })
+  });
 })

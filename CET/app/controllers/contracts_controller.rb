@@ -7,7 +7,8 @@ class ContractsController < ApplicationController
 
   def new
     @contract = current_user.contracts.new
-    @locations = HMIS::locations(current_user.email)
+    @users = HMIS::users
+    #@locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
     @name_types = HMIS::name_types()
     @discount_reason = HMIS::get_discount_reason
@@ -30,7 +31,8 @@ class ContractsController < ApplicationController
 
   def edit
     @contract = current_user.contracts.find(params[:id])
-    @locations = HMIS::locations(current_user.email)
+    @users = HMIS::users
+    #@locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
     @name_types = HMIS::name_types()
     @discount_reason = HMIS::get_discount_reason
@@ -48,6 +50,22 @@ class ContractsController < ApplicationController
         format.html{ redirect_to(:action => "edit") }
       end
     end
+  end
+  
+  def user_password
+    user_id = params[:user_id].blank? ? nil : params[:user_id]
+    @password = user_id.blank? ? [] : HMIS::user_password(user_id)
+     respond_to do |format|
+       format.html{ render :text => @password }
+     end
+  end
+  
+  def user_location
+    user_id = params[:user_id].blank? ? nil : params[:user_id]
+    @locations = user_id.blank? ? [] : HMIS::locations(user_id)
+     respond_to do |format|
+       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @locations} }
+     end
   end
   
   def sales_type

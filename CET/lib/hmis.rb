@@ -1,5 +1,14 @@
 module HMIS
   class << self
+    def users
+      ['MVNSMG', "SHNSMG", "FHNSMG"]
+    end
+    
+    def user_password(user)
+      user_list = {"MVNSMG" => "tftEp#85", "SHNSMG" => "Spring$786", "FHNSMG" => "xmd0ldhm$" }
+      user_list[user.to_s]
+    end
+    
     def locations(user_id = nil)
       {'101 Memorial House'=> 115, '102 Memorial House'=> 112}
     end
