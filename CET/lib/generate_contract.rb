@@ -116,7 +116,7 @@ module GenerateContract
 			sheet = book.create_worksheet :name => "data"
 			sheet.row(0).push "Location", contract["location_id"], "", "Batch_Date", contract["sales_batch_date"], "", "Txn_Date", contract["sales_txn_date"]
 			sheet.row(1).push "Contract_Number", contract["contract_no"]
-			sheet.row(2).push "Sales_Type", contract["sales_type"], "", "User Name", user.email, "", "Password", ""
+			sheet.row(2).push "Sales_Type", contract["sales_type"], "", "User Name", contract["username"], "", "Password", contract["password"]
 			sheet.row(3).push "Txn_Type", contract["sales_txn_type"], "", "HMIS URL", contract["hmis_url"]
 			sheet.row(4).push "Sales_Date", contract["sales_date"], "", "Terms", contract["interest_term"], "", "Payment_Start_Date", contract["interest_payment_start_date"], "", "Interest_Method", contract["interest_method"]
 			sheet.row(5).push "Sales_Need", contract["sales_need"], "", "Interest_Rate", contract["interest_rate"], "", "Days_Interest_Free", contract["interest_free_days"], "", "Forgive_Interest", contract["interest_forgive"]
