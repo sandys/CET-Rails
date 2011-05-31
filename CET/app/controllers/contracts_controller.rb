@@ -8,12 +8,15 @@ class ContractsController < ApplicationController
   def new
     session[:cparams] ||= {}
     @contract = current_user.contracts.new(session[:cparams])
+    @contract.data = session[:cparams]
+    puts "******************************#{session[:cparams].inspect}"
+        puts "****************************#{@contract.inspect}"
     @users = HMIS::users
     #@locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
     @name_types = HMIS::name_types()
     @discount_reason = HMIS::get_discount_reason
-    @upload_type = HMIS::file_upload_type
+    #@upload_type = HMIS::file_upload_type
     
     @contract.current_step = session[:cstep]
     respond_to do |format|

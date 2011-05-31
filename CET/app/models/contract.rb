@@ -12,11 +12,7 @@ class Contract < ActiveRecord::Base
   #after_save  :json_deserialize
   #after_find  :json_deserialize
   
-  attr_writer :current_step, :sales_batch_date
-  
-  def sales_batch_date
-  	@sales_batch_date = self.sales_batch_date
-  end
+  attr_writer :current_step, :sales_batch_date, :sales_txn_date, :sales_date
   
   def current_step
 		@current_step || steps.first
@@ -59,5 +55,21 @@ class Contract < ActiveRecord::Base
     Resque.enqueue(CompressQueue, self.id)
     Resque.enqueue(MailQueue, self.id)
   end
+  
+  
+  def sales_batch_date
+  	@sales_batch_date || self.data['sales_batch_date']
+  end
+  
+  def sales_txn_date
+  	@sales_txn_date || self.data['sales_txn_date']
+  end
+  
+  def sales_date
+  	@sales_date || self.data['sales_date']
+  end
+  
+  
+  
 
 end
