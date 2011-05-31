@@ -1,0 +1,88 @@
+  <%= field_set_tag "Contract and Sales Information" do %>
+    <span>
+      <%= label_tag 'contract_username', "HMIS Username" %>
+      <%= select_box('contract[username]', @users) %>
+    </span>
+    <span>
+      <%#= label_tag 'contract_password', "Password" %>
+      <%= hidden_field_tag 'contract[password]' %>
+    </span>
+    <p>
+      <%#= label_tag 'hmis_url', "HMIS URL" %>
+      <%#= text_field_tag "HMIS[url]", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis", :disabled => true, :size => 50 %>
+      <%= hidden_field_tag "contract[hmis_url]", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis" %>
+    </p>
+    <span>
+      <%= f.label 'contract_no', "Contract No" %>
+      <%= f.text_field :contract_no %>
+    </span>
+    <span>
+      <%= f.label 'location_id', "Batch Location" %>
+      <%= f.select("location_id", [], { :include_blank => true }) %>
+      <%#=  select_box('contract[location_id]', @locations) %>
+    </span>
+    
+   <br />
+   <br />
+   
+    <span>
+      <%= label_tag 'contract_sale_type', "Sales Type" %>
+      <%=  select_box('contract[sales_type]', []) %>
+    </span>
+    
+    <span>
+      <%= label_tag 'contract_sale_need', "Sales Need" %>
+      <%=  select_box('contract[sales_need]', @sales_need, {}) %>
+    </span>
+    
+    <span>
+      <%= label_tag 'contract_sale_txn_type', "Txn Type" %>
+      <%=  select_box('contract[sales_txn_type]', []) %>
+    </span>
+
+    <br />
+    <br />
+    <span>
+      <%= label_tag 'contract_sales_batch_date', "Batch Date" %>
+      <%= text_field_tag "contract[sales_batch_date]", "" %>
+    </span>
+    
+    <span>
+      <%= label_tag 'contract_sales_txn_date', "Txn Date" %>
+      <%= text_field_tag "contract[sales_txn_date]", "" %>
+    </span>
+    
+    <span>
+      <%= label_tag 'contract_sales_date', "Sales Date" %>
+      <%= text_field_tag "contract[sales_date]", "" %>
+    </span>
+    
+    <p>
+      <%= label_tag 'contract_sales_leadsource', "Lead Source" %>
+      <%=  select_box('contract[sales_lead_source]', []) %>
+    </p>
+    
+    <p>
+      <%= label_tag 'contract_sales_primary_counselor', "Primary Counselor" %>
+      <%=  select_box('contract[sales_primary_counselor]', []) %>
+    </p>
+    
+    <p>
+      <%= label_tag 'contract_sales_secondary_counselor_1', "Secondary Counselor" %>
+      <%=  select_box('contract[sales_secondary_counselor_1]', []) %>
+    </p>
+    
+    <p>
+      <%#= label_tag 'contract_sales_secondary_counselor_2', "Secondary Counselor 2" %>
+      <%#=  select_box('contract[sales_secondary_counselor_2]', []) %>
+    </p>
+    
+    <p>
+      <%#= label_tag 'contract_sales_secondary_counselor_3', "Secondary Counselor 3" %>
+      <%#=  select_box('contract[sales_secondary_counselor_3]', []) %>
+    </p>
+  <% end %>
+  
+  <br />
+  <br />  
+  <p><%#= f.submit "Save Contract Entry" %></p>

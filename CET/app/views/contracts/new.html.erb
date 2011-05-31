@@ -1,5 +1,23 @@
 <% title "New Contract" %>
 
-<%= render 'form' %>
+<%= debug @contract %>
+<%= form_for @contract, :html => { :multipart => true } do |f| %>
+  <% if @contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
 
-<p><%= link_to "Back to List", contracts_path %></p>
+      <ul>
+      <% @contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= render "#{@contract.current_step}_step", :f => f %>
+  <p><%= f.submit "Continue" %></p>
+  <p><%= f.submit "Back", :name => "back_button" unless @contract.first_step? %></p>
+  
+<% end %>
+
+<p><%#= link_to "Back to List", contracts_path %></p>

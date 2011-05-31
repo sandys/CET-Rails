@@ -11,15 +11,45 @@ class Contract < ActiveRecord::Base
   before_save :json_serialize
   #after_save  :json_deserialize
   #after_find  :json_deserialize
-
+  
+  attr_writer :current_step, :sales_batch_date
+  
+  def sales_batch_date
+  	@sales_batch_date = self.sales_batch_date
+  end
+  
+  def current_step
+		@current_step || steps.first
+	end
+	
+	def steps
+		%w[contract_detail personal_detail item_detail]
+	end
+	
+	def next_step
+		self.current_step = steps[steps.index(current_step) + 1]
+	end
+	
+	def previous_step
+		self.current_step = steps[steps.index(current_step) - 1 ]
+	end
+	
+	def first_step?
+		current_step == steps.first
+	end
+	
+	def last_step?
+		current_step == steps.last
+	end
+  
   def json_serialize  
-  self.data = ActiveSupport::JSON.encode(self.attributes['data'])
+    self.data = ActiveSupport::JSON.encode(self.attributes['data'])
   end
 
   def json_deserialize
-  unless (self.attributes['data'].nil?)
-    self.data = ActiveSupport::JSON.decode(self.attributes['data'].to_s)
-  end
+    unless (self.attributes['data'].nil?)
+      self.data = ActiveSupport::JSON.decode(self.attributes['data'].to_s)
+    end
   end
 
   
@@ -29,9 +59,5 @@ class Contract < ActiveRecord::Base
     Resque.enqueue(CompressQueue, self.id)
     Resque.enqueue(MailQueue, self.id)
   end
-  
-  #def create_pdf
-  #  GenerateContract::PDF.create(self)
-  #end
-  
+
 end

@@ -1,0 +1,74 @@
+<table class="customers">
+  <tbody>
+    <tr>
+      <th>Item CD search</th>
+      <th>Item Desc search</th>
+      <th>Category code</th>
+      <th>Group code</th>
+      <th>HMIS search</th>
+      <th>HMIS item list</th>
+      <th>Final item code</th>
+      <th>Final item Desc</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Discount%</th>
+      <th>Discount</th>
+      <th>Discount reason</th>
+      <th>Cost</th>
+      <th>Sales need</th>
+    </tr>
+
+		<% (1..5).each do |item| %>
+		<tr class=<%= item%2 == 0 ? "alt" : ""%>>
+			<td>
+				<%= text_field_tag "contract[item][#{item}][item_cd_search]", "", :size => 6 %>
+			</td>
+			<td>
+				<%= text_field_tag "contract[item][#{item}][item_desc_search]", "", :size => 3  %>
+			</td>
+			<td>
+				<%= select_box("contract[item][#{item}][category_code]", []) %>
+			</td>
+			<td>
+				<%= select_box("contract[item][#{item}][group_code]", [], :class => "item_group_code") %>
+			</td>
+			<td>
+				<a id=<%= "item_find" %> href="#">Find </a>
+			</td>
+			<td>
+				<%= select_box("contract[item][#{item}][list]", []) %>
+			</td>
+			<td>
+				<%= text_field_tag "contract[item][#{item}][final_code]", "", :size => 6  %>
+			</td>
+			<td>
+				<%= text_field_tag "contract[item][#{item}][final_desc]", "", :size => 10  %>
+			</td>
+			<td>
+				<%= text_field_tag "contract[item][#{item}][quantity]", "", :size => 5 %>
+			</td>
+			<td>
+				<%= text_field_tag "contract[item][#{item}][price]", "", :size => 5  %>
+			</td>
+			<td>
+				<%= text_field_tag "contract[item][#{item}][discount_percent]", "", :size => 5  %>
+			</td>
+			<td>
+				<%= text_field_tag "contract[item][#{item}][discount]", "", :size => 5  %>
+			</td>
+			<td>
+				<%= select_box("contract[item][#{item}][discount_reason]", @discount_reason) %>
+			</td>
+			<td>
+				<%= text_field_tag "contract[item][#{item}][cost]", "", :size => 5, :limit => 10  %>
+			</td>
+			<td>
+				<%= select_box("contract[item][#{item}][sale_need]", @sales_need)%>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+  
+<br />
+<br />

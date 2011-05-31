@@ -1,0 +1,77 @@
+<table class="customers">
+    <tbody>
+      <tr>
+        <th>Type</th>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Last Name</th>
+        <th>Zipcode</th>
+        <th>Phone</th>
+        <th>Validate</th>
+        <th>HMIS Validation</th>
+        <th>USPS Validation</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>DOB [mm/dd/yyyy]</th>
+        <th>DOD [mm/dd/yyyy]</th>
+        <th>SSN</th>
+      </tr>
+    
+
+
+			<% (1..10).each do |item| %>
+			<tr class=<%= item%2 == 0 ? "alt" : ""%>>
+				<td>
+					<%= select_box("contract[personal][#{item}][name_type]", @name_types, :include_blank => false) %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][first_name]", "", :size => 6 %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][middle_name]", "", :size => 3  %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][last_name]", "", :size => 6  %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][zipcode]", "", :size => 5  %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][phone]", "", :size => 6, :limit => 15  %>
+				</td>
+				<td>
+					<a id=<%= "validate" %> href="#">Validate! </a>
+				</td>
+				<td>
+					<%= select_box("contract[personal][#{item}][hmis_name]", []) %>
+				</td>
+				<td>
+					<%= select_box("contract[personal][#{item}][usps_data]", [])%>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][address]", "", :size => 10  %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][city]", "", :size => 5  %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][state]", "", :size => 5  %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][dob]", "", :size => 5, :limit => 10  %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][dod]", "", :size => 5, :limit => 10 %>
+				</td>
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][ssn]", "", :size => 3  %>
+				</td>
+			</tr>
+			<% end %>
+
+	</tbody>
+</table>
+  
+<br />
+<br />

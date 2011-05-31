@@ -6,25 +6,47 @@ class ContractsController < ApplicationController
   end
 
   def new
-    @contract = current_user.contracts.new
+    session[:cparams] ||= {}
+    @contract = current_user.contracts.new(session[:cparams])
     @users = HMIS::users
     #@locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
     @name_types = HMIS::name_types()
     @discount_reason = HMIS::get_discount_reason
     @upload_type = HMIS::file_upload_type
+    
+    @contract.current_step = session[:cstep]
+    respond_to do |format|
+      format.html # new.html.erb
+    end
   end
 
   def create
-    @contract = current_user.contracts.new(params[:contract])
-    @contract.data = params[:contract] #JSON.parse(params[:contract].to_json)
+    session[:cparams].deep_merge!(params[:contract]) if params[:contract]
+    @contract = current_user.contracts.new(session[:cparams])
+    @contract.current_step = session[:cstep]
+    @contract.data = session[:cparams] #JSON.parse(params[:contract].to_json)
+    
+    if @contract.valid?
+      if params[:back_button]
+        @contract.previous_step
+      elsif @contract.last_step?
+        @contract.save #if @order.all_valid?
+      else
+        @contract.next_step
+      end
+      session[:cstep] = @contract.current_step
+    end
+    
+    
     respond_to do |format|
-      if @contract.save
-        @contract.async_contract_entry()
-        format.html{ redirect_to contracts_url, :notice => "Successfully created contract." }
+      unless @contract.new_record?
+        #@contract.async_contract_entry()
+        session[:cstep] = session[:cparams] = nil
+        format.html{ redirect_to contracts_url, :notice => "Contract created successfully." }
       else
         #flash[:error] = "Error Occured"
-        format.html{ redirect_to(:action => "new") }
+        format.html { redirect_to(:action => "new") }
       end
      end
   end
