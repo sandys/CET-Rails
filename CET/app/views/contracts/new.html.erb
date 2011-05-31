@@ -1,6 +1,5 @@
 <% title "New Contract" %>
 
-<%= debug @contract %>
 <%= form_for @contract, :html => { :multipart => true } do |f| %>
   <% if @contract.errors.any? %>
     <div id="error_explanation">
