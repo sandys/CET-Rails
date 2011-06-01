@@ -18,6 +18,7 @@ CET::Application.routes.draw do
       post "interest_method"
       post "user_password"
       post "user_location"
+      post "usernames"
     end
   end
 

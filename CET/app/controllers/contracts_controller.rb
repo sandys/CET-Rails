@@ -77,6 +77,13 @@ class ContractsController < ApplicationController
     end
   end
   
+  def usernames
+    @users = HMIS::users
+     respond_to do |format|
+       format.json{ render :json => @users }
+     end
+  end
+  
   def user_password
     user_id = params[:user_id].blank? ? nil : params[:user_id]
     @password = user_id.blank? ? [] : HMIS::user_password(user_id)
@@ -89,7 +96,8 @@ class ContractsController < ApplicationController
     user_id = params[:user_id].blank? ? nil : params[:user_id]
     @locations = user_id.blank? ? [] : HMIS::locations(user_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @locations} }
+       format.json{ render :json => @locations }
+       #format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @locations} }
      end
   end
   
@@ -97,7 +105,8 @@ class ContractsController < ApplicationController
     location_id = params[:location_id].blank? ? nil : params[:location_id]
     @sale_types = location_id.blank? ? [] : HMIS::get_sales_type(location_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sale_types} }
+       format.json{ render :json => @sale_types }
+       #format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sale_types} }
      end
   end 
   
@@ -105,7 +114,8 @@ class ContractsController < ApplicationController
     sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
     @sales_txn_types = sales_type_id.blank? ? [] : HMIS::get_sales_txn_type(sales_type_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sales_txn_types } }
+       format.json{ render :json => @sales_txn_types }
+       #format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sales_txn_types } }
      end
   end  
   
@@ -113,7 +123,8 @@ class ContractsController < ApplicationController
     sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
     @sales_counselor = sales_type_id.blank? ? [] : HMIS::get_sales_counselor(sales_type_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sales_counselor } }
+       format.json{ render :json => @sales_counselor }
+       #format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @sales_counselor } }
      end
   end
   
@@ -121,7 +132,8 @@ class ContractsController < ApplicationController
     sales_txn_type_id = params[:sales_txn_type_id].blank? ? nil : params[:sales_txn_type_id]
     @lead_sources = sales_txn_type_id.blank? ? [] : HMIS::get_sales_lead_source(sales_txn_type_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @lead_sources } }
+       format.json{ render :json => @lead_sources }
+       #format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @lead_sources } }
      end
   end
   
@@ -129,7 +141,8 @@ class ContractsController < ApplicationController
     location_id = params[:location_id].blank? ? nil : params[:location_id]
     @group_codes = location_id.blank? ? [] : HMIS::get_group_codes(location_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @group_codes } }
+       format.json{ render :json => @group_codes }
+       #format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @group_codes } }
      end
   end
   
@@ -137,7 +150,8 @@ class ContractsController < ApplicationController
     group_code_id = params[:group_code_id].blank? ? nil : params[:group_code_id]
     @category_codes = group_code_id.blank? ? [] : HMIS::get_category_codes(group_code_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @category_codes } }
+       format.json{ render :json => category_codes }
+       #format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @category_codes } }
      end
   end
   

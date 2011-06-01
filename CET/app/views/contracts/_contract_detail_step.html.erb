@@ -1,12 +1,19 @@
   <%= field_set_tag "Contract and Sales Information" do %>
+    
+    <!-- HMIS username -->
     <span>
       <%= label_tag 'contract_username', "HMIS Username" %>
-      <%= select_box('contract[username]', @users) %>
+      <%= f.text_field :username %>
+      <%#= select_box('contract[username]', @users) %>
     </span>
+    
+    
     <span>
       <%#= label_tag 'contract_password', "Password" %>
-      <%= hidden_field_tag 'contract[password]' %>
+      <%= f.hidden_field :password %>
     </span>
+    
+    <!-- HMIS URL -->
     <p>
       <%#= label_tag 'hmis_url', "HMIS URL" %>
       <%#= text_field_tag "HMIS[url]", "http://174.143.165.9/hmisweb4/login.aspx?dbCompanyName=hmis", :disabled => true, :size => 50 %>
@@ -16,9 +23,12 @@
       <%= f.label 'contract_no', "Contract No" %>
       <%= f.text_field :contract_no %>
     </span>
+    
+    <!--location -->
     <span>
       <%= f.label 'location_id', "Batch Location" %>
-      <%= f.select("location_id", [], { :include_blank => true }) %>
+      <%= f.text_field :location_id %>
+      <%#= f.select("location_id", [], { :include_blank => true }) %>
       <%#=  select_box('contract[location_id]', @locations) %>
     </span>
     
@@ -27,17 +37,25 @@
    
     <span>
       <%= label_tag 'contract_sale_type', "Sales Type" %>
-      <%=  select_box('contract[sales_type]', []) %>
+      <%= f.text_field :sales_type %>
+      <%#=  select_box('contract[sales_type]', []) %>
     </span>
     
     <span>
       <%= label_tag 'contract_sale_need', "Sales Need" %>
-      <%=  select_box('contract[sales_need]', @sales_need, {}) %>
+      <%= f.text_field :sales_need %>
+      <script type="text/javascript" charset="utf-8">
+        $("#contract_sales_need").autocomplete({
+          source: <%= sanitize(@sales_need.to_json) %>
+        });
+      </script>
+      <%#=  select_box('contract[sales_need]', @sales_need, {}) %>
     </span>
     
     <span>
       <%= label_tag 'contract_sale_txn_type', "Txn Type" %>
-      <%=  select_box('contract[sales_txn_type]', []) %>
+      <%= f.text_field :sales_txn_type %>
+      <%#=  select_box('contract[sales_txn_type]', []) %>
     </span>
 
     <br />
@@ -59,26 +77,31 @@
     
     <p>
       <%= label_tag 'contract_sales_leadsource', "Lead Source" %>
-      <%=  select_box('contract[sales_lead_source]', []) %>
+      <%= f.text_field :sales_lead_source %>
+      <%#=  select_box('contract[sales_lead_source]', []) %>
     </p>
     
     <p>
       <%= label_tag 'contract_sales_primary_counselor', "Primary Counselor" %>
-      <%=  select_box('contract[sales_primary_counselor]', []) %>
+      <%= f.text_field :sales_primary_counselor %>
+      <%#=  select_box('contract[sales_primary_counselor]', []) %>
     </p>
     
     <p>
       <%= label_tag 'contract_sales_secondary_counselor_1', "Secondary Counselor" %>
-      <%=  select_box('contract[sales_secondary_counselor_1]', []) %>
+      <%= f.text_field :sales_secondary_counselor_1 %>
+      <%#=  select_box('contract[sales_secondary_counselor_1]', []) %>
     </p>
     
     <p>
       <%#= label_tag 'contract_sales_secondary_counselor_2', "Secondary Counselor 2" %>
+      <%#= f.text_field :sales_secondary_counselor_2 %>
       <%#=  select_box('contract[sales_secondary_counselor_2]', []) %>
     </p>
     
     <p>
       <%#= label_tag 'contract_sales_secondary_counselor_3', "Secondary Counselor 3" %>
+      <%#= f.text_field :sales_secondary_counselor_3 %>
       <%#=  select_box('contract[sales_secondary_counselor_3]', []) %>
     </p>
   <% end %>
