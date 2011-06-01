@@ -10,11 +10,11 @@ module HMIS
     end
     
     def locations(user_id = nil)
-      {'101 Memorial House'=> 115, '102 Memorial House'=> 112}
+      ['101 Memorial House', '102 WoodTrunk House']
     end
 
     def get_sales_type(location_id = nil)
-      ["need", "forever"]
+      ["need", "funeral", "cemetery", "forever"]
     end
 
     def sales_need
@@ -30,7 +30,7 @@ module HMIS
     end
     
     def get_sales_counselor(sales_type_id = nil)
-      {"Robert Lacey" => "1-Robert-Lacey", "John Brooks" => "2-John-Brooks", "Paul Shipman" => "3-Paul-Shipman", "Dennis Bonner" => "4-Dennis-Bonner", "House Account" => "5-House-Account", "Ben Upton" => "6-Ben-Upton", "John Carnes" => "7-John-Carnes", "Donald Garrison" => "8-Donald-Garrison", "Dale Granger" => "9-Dale-Granger", "Craig Wolf" => "10-Craig-Wolf"}
+      {"Robert Lacey" => "1-Robert-Lacey", "John Brooks" => "2-John-Brooks", "Paul Shipman" => "3-Paul-Shipman", "Dennis Bonner" => "4-Dennis-Bonner", "House Account" => "5-House-Account", "Ben Upton" => "6-Ben-Upton", "John Carnes" => "7-John-Carnes", "Donald Garrison" => "8-Donald-Garrison", "Dale Granger" => "9-Dale-Granger", "Craig Wolf" => "10-Craig-Wolf"}.keys
     end
     
     def name_types
