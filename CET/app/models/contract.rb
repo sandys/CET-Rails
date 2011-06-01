@@ -10,9 +10,9 @@ class Contract < ActiveRecord::Base
   
   before_save :json_serialize
   #after_save  :json_deserialize
-  #after_find  :json_deserialize
+  after_find  :json_deserialize
   
-  attr_writer :current_step, :sales_batch_date, :sales_txn_date, :sales_date
+  attr_writer :current_step, :sales_batch_date, :sales_txn_date, :sales_date, :username
   
   def current_step
 		@current_step || steps.first
@@ -56,7 +56,7 @@ class Contract < ActiveRecord::Base
     Resque.enqueue(MailQueue, self.id)
   end
   
-  
+=begin  
   def sales_batch_date
   	@sales_batch_date || self.data['sales_batch_date']
   end
@@ -69,7 +69,21 @@ class Contract < ActiveRecord::Base
   	@sales_date || self.data['sales_date']
   end
   
+  def username
+ 		@username || self.data['username'] 	
+  end
   
+  def password
+  	@password || self.data["password"]
+  end
+=end  
+  def method_missing(method, *args, &block)
+		super
+		rescue NoMethodError => e
+			field = self.data[method.to_s]
+			raise e if field.nil?
+			field
+	end
   
 
 end
