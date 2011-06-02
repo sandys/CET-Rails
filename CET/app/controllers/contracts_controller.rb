@@ -3,6 +3,7 @@ class ContractsController < ApplicationController
   
   def index
     @contracts = current_user.contracts.all
+    session[:cstep] = session[:cparams] = nil
   end
 
   def new
@@ -108,6 +109,17 @@ class ContractsController < ApplicationController
         #flash[:error] = "Error Occured"
         format.html { redirect_to(:action => "edit") }
       end
+     end
+  end
+  
+  def customer_search
+    fname = params[:customer_search][:fname].downcase == "first name"  ? "" : params[:customer_search][:fname]
+    lname = params[:customer_search][:lname].downcase == "last name"  ? "" : params[:customer_search][:fname]
+    zipcode = params[:customer_search][:zipcode].downcase == "zipcode"  ? "" : params[:customer_search][:fname]
+    phone = params[:customer_search][:phone].downcase == "phone"  ? "" : params[:customer_search][:fname]
+    @result = HMIS::customer_search(:first_name => fname, :last_name => lname, :zipcode => zipcode, :phone => phone)
+    respond_to do |format|
+       format.json{ render :json => @result }
      end
   end
   

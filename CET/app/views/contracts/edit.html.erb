@@ -3,11 +3,17 @@
   <div class="details">
 	  <p>Would you like to search for an existing Purchaser?</p>
   </div>
-  <div>
-	  <%= text_field_tag "customer_search[fname]"%>
-	  <%= text_field_tag "customer_search[lname]"%>
-	  <%= text_field_tag "customer_search[zipcode]"%>
-	  <%= text_field_tag "customer_search[phone]"%>
+ <div>
+  	<%= form_tag('/contracts/customer_search', :id => "customer_search") do -%>
+			<%= text_field_tag "customer_search[fname]", "First name", :class => "dull-txt", :onfocus => "$(this).clearfield('First name');", :onblur => "$(this).resetfield('First name');" %>
+			<span>or</span>
+			<%= text_field_tag "customer_search[lname]", "Last name", :class => "dull-txt", :onfocus => "$(this).clearfield('Last name');", :onblur => "$(this).resetfield('Last name');"%>
+			<span>or</span>
+			<%= text_field_tag "customer_search[zipcode]", "Zipcode", :class => "dull-txt", :onfocus => "$(this).clearfield('Zipcode');", :onblur => "$(this).resetfield('Zipcode');" %>
+			<span>or</span>
+			<%= text_field_tag "customer_search[phone]", "Phone", :class => "dull-txt", :onfocus => "$(this).clearfield('Phone');", :onblur => "$(this).resetfield('Phone');" %>
+			<%= submit_tag "Search" %>
+		<% end -%>
   </div>
 
   <br />

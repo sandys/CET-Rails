@@ -88,4 +88,38 @@ $(function() {
       $("#contract_item_"+id+"_category_code").autocomplete({source: data});
     });
   });
+  
+  
+  
+  $("#customer_search").submit(function(event){
+    event.preventDefault(); 
+
+    /* Send the data using post and put the results in a div */
+    $.post( '/contracts/customer_search', $(this).serialize(),
+      function( data ) {
+          console.log(data);
+          $('input').filter(function() {
+            if(this.id.match(/contract_personal_\d_first_name/).val() == ""){
+              var id = this.id.match(/\d+/)[0];
+              console.log(id);
+              $(this).val(data["first_name"]);
+            }
+          });
+      }
+    );
+  });
 })
+
+jQuery.fn.clearfield = function(txt){
+  if (this.val() == txt) {
+    this.val('');
+    this.removeClass("dull-txt");
+   }
+};
+
+jQuery.fn.resetfield = function(txt){
+  if (this.val() == "") {
+    this.val(txt);
+    this.addClass("dull-txt");
+   }
+};

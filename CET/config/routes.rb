@@ -19,6 +19,8 @@ CET::Application.routes.draw do
       post "user_password"
       post "user_location"
       post "usernames"
+      post "customer_search"
+      post "item_search"
     end
   end
 

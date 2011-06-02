@@ -22,6 +22,11 @@ input {
     border: 1px solid #98BF21;
 }
 
+.dull-txt{
+  font-style: italic;
+  color: #777;
+}
+
 #container {
   width: 90%;
   margin: 0 auto;

@@ -65,6 +65,11 @@ module HMIS
 	    ["Account Adjustment Notes", "Accounting Copy", "Addendum FL Merch", "Affidavits", "AN Cemetery Contract", "AN Funeral Contract", "APD Authorization", "Assignment of PN Merchandise", "Auth for Cremation and Disposition", "Away from Home Documents (TPP)", "Bankruptcy Documents", "Burial Permits", "California Compliance Forms", "Cancellation Application", "Cancellation Request", "Cash Receipt", "Cemetery Correspondence", "Certificate of Credit", "Certificate of Performance", "Certificate of Services Received", "Certificate of Title of Stored Markers", "Change of Beneficiary", "Check Return Notice", "Collection Letters", "Compliance Checklist", "Contract Adjustments", "Contract Customer Correspondence", "Corporate Use, Trust Only", "Data Entry Worksheet", "Death Certificate", "Death Maturity Forms", "Down Payment", "Family Protection Plan Documents", "Floral Photo", "General Price List with AN and PN", "Grandchild Protection Documents", "Grantor Letters", "Ins Application or Ins Forms", "Installation WO", "Interment Order or Authorization", "Letters of Testamentary", "Loss Affidavit or Affidavit of Loss", "Marker", "MEMs (Making Everlasting Memories)", "PN Cemetery Contract", "PN Funeral Contract", "Power of Attorney", "Pre-Need to At-Need Worksheet", "Receipt for Delivery", "Recurring Credit Card Payments", "Refund Check or CC Reversal", "Report of Death Beneficiary", "Sales Solicitation Letters to Customer", "Transfer Forms", "Transit Permit", "Unfunded Documents", "Unfunded Selection Document ", "Withdrawal Checklist", "Write-Off Form"]
 	  end
 	  
+	  
+	  def customer_search(options)
+	    {:first_name => "Akshay", :middle_name => "", :last_name => "Gupta", :zipcode => "55483", :address => "Memphis street", :city => "Stanford", :state => "SN", :phone => "23424723"}
+	  end
+	  
  #taken from NSMG.jsp (to figure out which function is called for which UI element) and GetHMISData.java
  #in the jsp file, when any element is triggered, the javascript constructs a GET query of the type "/NSMG/GetHMISData?something='something'&menutype=somemenu
  #in the .java file there is a function getData which switches on the "menutype" and takes the "something" as arguments to call the actual function
