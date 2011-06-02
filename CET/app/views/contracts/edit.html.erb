@@ -1,4 +1,54 @@
-<% title "Edit Contract" %>
+<% if @contract.current_step == "personal_detail" %>
+  <% title "Customer Details" %>
+  <div class="details">
+	  <p>Would you like to search for an existing Purchaser?</p>
+  </div>
+  <div>
+	  <%= text_field_tag "customer_search[fname]"%>
+	  <%= text_field_tag "customer_search[lname]"%>
+	  <%= text_field_tag "customer_search[zipcode]"%>
+	  <%= text_field_tag "customer_search[phone]"%>
+  </div>
 
-<%= render 'form' %>
+  <br />
+  <br />
+<% end%>
+
+<% if @contract.current_step == "item_detail" %>
+  <% title "Line Item Details" %>
+  <div class="details">
+	  <p>Would you like to search for an existing item?</p>
+  </div>
+  <div>
+	  <%= text_field_tag "item_search[item_code]"%>
+	  <%= text_field_tag "item_search[item_desc]"%>
+	  <%= text_field_tag "item_search[group_code]"%>
+	  <%= text_field_tag "item_search[category_code]"%>
+  </div>
+
+  <br />
+  <br />
+
+<% end %>
+
+
+<%= form_for @contract, :html => { :multipart => true } do |f| %>
+  <% if @contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+      <% @contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= render "#{@contract.current_step}_step", :f => f %>
+  <p><%= f.submit "Continue" %></p>
+  <p><%= f.submit "Back", :name => "back_button" unless @contract.first_step? %></p>
+  
+<% end %>
+
+<p><%= link_to "Back to List", contracts_path %></p>
 

@@ -62,30 +62,54 @@ class ContractsController < ApplicationController
   end
 
   def edit
+    session[:cparams] ||= {}
     @contract = current_user.contracts.find(params[:id])
+    session[:cparams] = @contract.json_deserialize
+
     @users = HMIS::users
     #@locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
     @name_types = HMIS::name_types()
     @discount_reason = HMIS::get_discount_reason
-    @upload_type = HMIS::file_upload_type
+    #@upload_type = HMIS::file_upload_type
+    
+    @contract.current_step = session[:cstep]
+    if @contract.current_step == "personal_detail"
+        @personal_details = session[:cparams]["personal"] unless session[:cparams]["personal"].nil?
+    end
+    if @contract.current_step == "item_detail"
+        @item_details = session[:cparams]["item"] unless session[:cparams]["item"].nil?
+    end
+    respond_to do |format|
+      format.html # new.html.erb
+    end
   end
 
   def update
+    session[:cparams].deep_merge!(params[:contract]) if params[:contract]
     @contract = current_user.contracts.find(params[:id])
+    @contract.current_step = session[:cstep]
+    @contract.data = session[:cparams] #JSON.parse(params[:contract].to_json)
+    if @contract.valid?
+      if params[:back_button]
+        @contract.previous_step
+      else
+        @contract.next_step
+      end
+      session[:cstep] = @contract.current_step
+    end
     respond_to do |format|
-      if @contract.update_attributes(:data => params[:contract])
-        #@contract.async_contract_entry(current_user.id)
-        format.html{ redirect_to contracts_url, :notice => "Successfully updatedcreated contract." }
+      if @contract.last_step?
+        @contract.update_attributes(:data => @contract.data, :contract_no => @contract.data["contract_no"], :location_id => @contract.data["location_id"])
+        #@contract.async_contract_entry()
+        session[:cstep] = session[:cparams] = nil
+        format.html{ redirect_to contracts_url, :notice => "Contract updated successfully." }
       else
         #flash[:error] = "Error Occured"
-        format.html{ redirect_to(:action => "edit") }
+        format.html { redirect_to(:action => "edit") }
       end
-    end
+     end
   end
-  
-  
-  
   
   def usernames
     @users = HMIS::users

@@ -101,5 +101,4 @@ class Contract < ActiveRecord::Base
 		@sales_secondary_counselor_1 || self.data["sales_secondary_counselor_1"]
 	end
 	
-
 end
