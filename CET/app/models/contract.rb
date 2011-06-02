@@ -12,7 +12,8 @@ class Contract < ActiveRecord::Base
   #after_save  :json_deserialize
   #after_find  :json_deserialize
   
-  attr_writer :current_step, :sales_batch_date, :sales_txn_date, :sales_date, :username
+  attr_writer :current_step, :sales_batch_date, :sales_txn_date, :sales_date, :username, :sales_type, :sales_need, 
+  :sales_txn_type, :sales_lead_source, :sales_primary_counselor, :sales_secondary_counselor_1
   
   def current_step
 		@current_step || steps.first
@@ -56,7 +57,6 @@ class Contract < ActiveRecord::Base
     Resque.enqueue(MailQueue, self.id)
   end
   
-=begin  
   def sales_batch_date
   	@sales_batch_date || self.data['sales_batch_date']
   end
@@ -76,14 +76,30 @@ class Contract < ActiveRecord::Base
   def password
   	@password || self.data["password"]
   end
-=end  
-  def method_missing(method, *args, &block)
-		super
-		rescue NoMethodError => e
-			field = self.data[method.to_s]
-			raise e if field.nil?
-			field
-	end
   
+  def sales_type
+  	@sales_type || self.data["sales_type"]
+  end
+
+	def sales_need
+		@sales_need || self.data["sales_need"]	
+	end
+	
+	def sales_txn_type
+		@sales_txn_type || self.data["sales_txn_type"]
+	end
+	
+	def sales_lead_source
+		@sales_lead_source || self.data["sales_lead_source"]
+	end
+	
+	def sales_primary_counselor
+		@sales_primary_counselor  || self.data["sales_primary_counselor"]
+	end
+	
+	def sales_secondary_counselor_1
+		@sales_secondary_counselor_1 || self.data["sales_secondary_counselor_1"]
+	end
+	
 
 end
