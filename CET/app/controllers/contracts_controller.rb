@@ -23,6 +23,9 @@ class ContractsController < ApplicationController
     if @contract.current_step == "personal_detail"
         @personal_details = session[:cparams]["personal"] unless session[:cparams]["personal"].nil?
     end
+    if @contract.current_step == "item_detail"
+        @item_details = session[:cparams]["item"] unless session[:cparams]["item"].nil?
+    end
     respond_to do |format|
       format.html # new.html.erb
     end

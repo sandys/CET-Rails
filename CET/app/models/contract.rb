@@ -20,7 +20,7 @@ class Contract < ActiveRecord::Base
 	end
 	
 	def steps
-		%w[contract_detail personal_detail item_detail]
+		%w[contract_detail personal_detail item_detail payment_detail]
 	end
 	
 	def next_step
