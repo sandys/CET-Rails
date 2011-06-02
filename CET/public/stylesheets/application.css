@@ -18,6 +18,10 @@ a {
   overflow: hidden;
 }
 
+input {
+    border: 1px solid #98BF21;
+}
+
 #container {
   width: 90%;
   margin: 0 auto;
@@ -91,11 +95,15 @@ select {
 
 
 .customers td, #customers th {
-    border: 1px solid #98BF21;
+
     font-size: 1.2em;
 }
 
 .customers tr.alt td {
     background-color: #EAF2D3;
     color: #000000;
+}
+
+.customers td input{
+    border: 1px solid #98BF21;
 }

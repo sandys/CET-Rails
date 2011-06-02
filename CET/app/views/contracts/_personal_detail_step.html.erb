@@ -6,66 +6,59 @@
         <th>Middle Name</th>
         <th>Last Name</th>
         <th>Zipcode</th>
-        <th>Phone</th>
-        <th>Validate</th>
-        <th>HMIS Validation</th>
-        <th>USPS Validation</th>
         <th>Address</th>
         <th>City</th>
         <th>State</th>
+        <th>Phone</th>
         <th>DOB [mm/dd/yyyy]</th>
-        <th>DOD [mm/dd/yyyy]</th>
+        <!--<th>DOD [mm/dd/yyyy]</th> -->
         <th>SSN</th>
+        <th>Validate</th>
       </tr>
     
 
 
-			<% (1..10).each do |item| %>
+			<% (1..5).each do |item| %>
 			<tr class=<%= item%2 == 0 ? "alt" : ""%>>
 				<td>
-					<%= select_box("contract[personal][#{item}][name_type]", @name_types, :include_blank => false) %>
+					<%= select_tag "contract[personal][#{item}][name_type]", options_for_select(@name_types, (@personal_details.nil? ? "" : @personal_details[item.to_s]["name_type"])), :include_blank => true  %>
 				</td>
 				<td>
-					<%= text_field_tag "contract[personal][#{item}][first_name]", "", :size => 6 %>
+					<%= text_field_tag "contract[personal][#{item}][first_name]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["first_name"]) , :size  => 12 %>
 				</td>
 				<td>
-					<%= text_field_tag "contract[personal][#{item}][middle_name]", "", :size => 3  %>
+					<%= text_field_tag "contract[personal][#{item}][middle_name]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["middle_name"]),:size => 9%>
 				</td>
 				<td>
-					<%= text_field_tag "contract[personal][#{item}][last_name]", "", :size => 6  %>
+					<%= text_field_tag "contract[personal][#{item}][last_name]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["last_name"]), :size => 12 %>
 				</td>
 				<td>
-					<%= text_field_tag "contract[personal][#{item}][zipcode]", "", :size => 5  %>
+					<%= text_field_tag "contract[personal][#{item}][zipcode]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["zipcode"]), :size => 6, :limit => 10%>
 				</td>
 				<td>
-					<%= text_field_tag "contract[personal][#{item}][phone]", "", :size => 6, :limit => 15  %>
+					<%= text_field_tag "contract[personal][#{item}][address]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["address"]), :size => 20%>
 				</td>
 				<td>
-					<a id=<%= "validate" %> href="#">Validate! </a>
+					<%= text_field_tag "contract[personal][#{item}][city]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["city"]), :size => 5  %>
 				</td>
 				<td>
-					<%= select_box("contract[personal][#{item}][hmis_name]", []) %>
+					<%= text_field_tag "contract[personal][#{item}][state]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["state"]), :size => 5  %>
 				</td>
 				<td>
-					<%= select_box("contract[personal][#{item}][usps_data]", [])%>
+					<%= text_field_tag "contract[personal][#{item}][phone]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["phone"]), :size => 8, :limit => 15  %>
 				</td>
 				<td>
-					<%= text_field_tag "contract[personal][#{item}][address]", "", :size => 10  %>
+					<%= text_field_tag "contract[personal][#{item}][dob]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["dob"]), :size => 15, :limit => 10  %>
+				</td>
+				<!--<td>
+					<%#= text_field_tag "contract[personal][#{item}][dod]", "", :size => 5, :limit => 10 %>
+				</td>
+				-->
+				<td>
+					<%= text_field_tag "contract[personal][#{item}][ssn]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["ssn"]), :size => 5  %>
 				</td>
 				<td>
-					<%= text_field_tag "contract[personal][#{item}][city]", "", :size => 5  %>
-				</td>
-				<td>
-					<%= text_field_tag "contract[personal][#{item}][state]", "", :size => 5  %>
-				</td>
-				<td>
-					<%= text_field_tag "contract[personal][#{item}][dob]", "", :size => 5, :limit => 10  %>
-				</td>
-				<td>
-					<%= text_field_tag "contract[personal][#{item}][dod]", "", :size => 5, :limit => 10 %>
-				</td>
-				<td>
-					<%= text_field_tag "contract[personal][#{item}][ssn]", "", :size => 3  %>
+					<%= link_to "USPS", "javascript:void(0);" %>
 				</td>
 			</tr>
 			<% end %>

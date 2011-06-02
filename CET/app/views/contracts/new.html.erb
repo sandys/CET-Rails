@@ -1,4 +1,20 @@
-<% title "New Contract" %>
+
+<% if @contract.current_step == "personal_detail" %>
+  <% title "Customer Details" %>
+  <div class="details">
+	  <p>Would you like to search for an existing Purchaser?</p>
+  </div>
+  <div>
+	  <%= text_field_tag "customer_search[fname]"%>
+	  <%= text_field_tag "customer_search[lname]"%>
+	  <%= text_field_tag "customer_search[zipcode]"%>
+	  <%= text_field_tag "customer_search[phone]"%>
+  </div>
+
+  <br />
+  <br />
+<% end%>
+
 
 <%= form_for @contract, :html => { :multipart => true } do |f| %>
   <% if @contract.errors.any? %>
@@ -12,7 +28,6 @@
       </ul>
     </div>
   <% end %>
-  
   <%= render "#{@contract.current_step}_step", :f => f %>
   <p><%= f.submit "Continue" %></p>
   <p><%= f.submit "Back", :name => "back_button" unless @contract.first_step? %></p>

@@ -9,8 +9,9 @@ class ContractsController < ApplicationController
     session[:cparams] ||= {}
     @contract = current_user.contracts.new(session[:cparams])
     @contract.data = session[:cparams]
+
     puts "******************************#{session[:cparams].inspect}"
-        puts "****************************#{@contract.inspect}"
+    puts "****************************#{@contract.inspect}"
     @users = HMIS::users
     #@locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
@@ -19,6 +20,9 @@ class ContractsController < ApplicationController
     #@upload_type = HMIS::file_upload_type
     
     @contract.current_step = session[:cstep]
+    if @contract.current_step == "personal_detail"
+        @personal_details = session[:cparams]["personal"] unless session[:cparams]["personal"].nil?
+    end
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -76,6 +80,9 @@ class ContractsController < ApplicationController
       end
     end
   end
+  
+  
+  
   
   def usernames
     @users = HMIS::users
