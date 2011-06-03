@@ -1,10 +1,11 @@
 <% if @contract.current_step == "personal_detail" %>
   <% title "Customer Details" %>
-  <div class="details">
-	  <p>Would you like to search for an existing Purchaser?</p>
+  <div class="search_details">
+	  Would you like to search for an existing Purchaser?
   </div>
- <div>
-  	<%= form_tag('/contracts/customer_search', :id => "customer_search") do -%>
+  <br />
+	<div>
+		<%= form_tag('/contracts/customer_search', :id => "customer_search") do -%>
 			<%= text_field_tag "customer_search[fname]", "First name", :class => "dull-txt", :onfocus => "$(this).clearfield('First name');", :onblur => "$(this).resetfield('First name');" %>
 			<span>or</span>
 			<%= text_field_tag "customer_search[lname]", "Last name", :class => "dull-txt", :onfocus => "$(this).clearfield('Last name');", :onblur => "$(this).resetfield('Last name');"%>
@@ -14,7 +15,7 @@
 			<%= text_field_tag "customer_search[phone]", "Phone", :class => "dull-txt", :onfocus => "$(this).clearfield('Phone');", :onblur => "$(this).resetfield('Phone');" %>
 			<%= submit_tag "Search" %>
 		<% end -%>
-  </div>
+	</div>
 
   <br />
   <br />
@@ -22,9 +23,10 @@
 
 <% if @contract.current_step == "item_detail" %>
   <% title "Line Item Details" %>
-  <div class="details">
-	  <p>Would you like to search for an existing item?</p>
+  <div class="search_details">
+	  Would you like to search for an existing item?
   </div>
+  <br />
   <div>
   	<%= form_tag('/contracts/item_search', :id => "item_search") do -%>
 			<%= text_field_tag "item_search[item_code]", "Item code", :class => "dull-txt", :onfocus => "$(this).clearfield('Item code');", :onblur => "$(this).resetfield('Item code');"%>

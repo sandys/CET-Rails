@@ -101,6 +101,7 @@ class ContractsController < ApplicationController
         @contract.next_step
       end
       session[:cstep] = @contract.current_step
+      @contract.update_attributes(:data => @contract.data, :contract_no => @contract.data["contract_no"], :location_id => @contract.data["location_id"])
       format.html { redirect_to(:action => "edit") }
     end
   end

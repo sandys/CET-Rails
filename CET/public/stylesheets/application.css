@@ -112,3 +112,20 @@ select {
 .customers td input{
     border: 1px solid #98BF21;
 }
+
+.bluebg{
+  background-color: #A4C639;
+  width: 500px;
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 24px;
+}
+
+.search_details{
+  background-color: #A4C639;
+  width: 500px;
+  padding: 5px;
+  text-align: center;
+  font-size: 16px;
+}
