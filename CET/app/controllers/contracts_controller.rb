@@ -2,15 +2,18 @@ class ContractsController < ApplicationController
   before_filter :authenticate_user!, :only => [:index, :new, :edit]
   
   def index
-    @contracts = current_user.contracts.all
+    @contracts = current_user.contracts.all rescue nil
     session[:cstep] = session[:cparams] = nil
+    respond_to do |format|
+       format.html{ }
+    end
   end
 
   def new
     session[:cparams] ||= {}
     @contract = current_user.contracts.new(session[:cparams])
     @contract.data = session[:cparams]
-
+      puts "************#{@contract.inspect}"
     @users = HMIS::users
     #@locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
@@ -25,6 +28,17 @@ class ContractsController < ApplicationController
     if @contract.current_step == "item_detail"
         @item_details = session[:cparams]["item"] unless session[:cparams]["item"].nil?
     end
+    
+    if @contract.current_step == "payment_detail"
+        @payment_details = session[:cparams]["payment"] unless session[:cparams]["payment"].nil?
+        @interest_term =  session[:cparams]["interest_term"].nil? ? "" : session[:cparams]["interest_term"]
+        @interest_payment_start_date = session[:cparams]["interest_payment_start_date"].nil? ? "" : session[:cparams]["interest_payment_start_date"] 
+        @interest_method = session[:cparams]["interest_method"].nil? ? "" : session[:cparams]["interest_method"] 
+        @interest_rate = session[:cparams]["interest_rate"].nil? ? "" : session[:cparams]["interest_rate"] 
+        @interest_free_days = session[:cparams]["interest_free_days"].nil? ? "" : session[:cparams]["interest_free_days"] 
+        @interest_forgive = session[:cparams]["interest_forgive"].nil? ? "" : session[:cparams]["interest_forgive"] 
+    end
+    
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -63,7 +77,7 @@ class ContractsController < ApplicationController
   def edit
     session[:cparams] ||= {}
     @contract = current_user.contracts.find(params[:id])
-    session[:cparams] = @contract.json_deserialize
+    session[:cparams] = @contract.data #json_deserialize
 
     @users = HMIS::users
     #@locations = HMIS::locations(current_user.email)
@@ -79,6 +93,16 @@ class ContractsController < ApplicationController
     if @contract.current_step == "item_detail"
         @item_details = session[:cparams]["item"] unless session[:cparams]["item"].nil?
     end
+    
+    if @contract.current_step == "payment_detail"
+        @payment_details = session[:cparams]["payment"] unless session[:cparams]["payment"].nil?
+        @interest_term =  session[:cparams]["interest_term"].nil? ? "" : session[:cparams]["interest_term"]
+        @interest_payment_start_date = session[:cparams]["interest_payment_start_date"].nil? ? "" : session[:cparams]["interest_payment_start_date"] 
+        @interest_method = session[:cparams]["interest_method"].nil? ? "" : session[:cparams]["interest_method"] 
+        @interest_rate = session[:cparams]["interest_rate"].nil? ? "" : session[:cparams]["interest_rate"] 
+        @interest_free_days = session[:cparams]["interest_free_days"].nil? ? "" : session[:cparams]["interest_free_days"] 
+        @interest_forgive = session[:cparams]["interest_forgive"].nil? ? "" : session[:cparams]["interest_forgive"] 
+    end
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -91,17 +115,17 @@ class ContractsController < ApplicationController
     @contract.data = session[:cparams] #JSON.parse(params[:contract].to_json)
     
     respond_to do |format|
+      @contract.update_attributes(:contract_no => @contract.data["contract_no"], :location_id => @contract.data["location_id"])
       if params[:back_button]
         @contract.previous_step
       elsif @contract.last_step?
-        @contract.update_attributes(:data => @contract.data, :contract_no => @contract.data["contract_no"], :location_id => @contract.data["location_id"])
         session[:cstep] = session[:cparams] = nil
         format.html{ redirect_to contracts_url, :notice => "Contract updated successfully." }
       else
         @contract.next_step
       end
       session[:cstep] = @contract.current_step
-      @contract.update_attributes(:data => @contract.data, :contract_no => @contract.data["contract_no"], :location_id => @contract.data["location_id"])
+      #@contract.save!
       format.html { redirect_to(:action => "edit") }
     end
   end
@@ -207,7 +231,7 @@ class ContractsController < ApplicationController
     sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
     @payment_type = sales_type_id.blank? ? [] : HMIS::get_down_payment_type(sales_type_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @payment_type } }
+       format.json{ render :json => @payment_type }
      end
   end
   
@@ -215,7 +239,7 @@ class ContractsController < ApplicationController
     sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
     @interest_term = sales_type_id.blank? ? [] : HMIS::get_interest_term(sales_type_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @interest_term } }
+       format.json{ render :json => @interest_term }
      end
   end
   
@@ -223,7 +247,7 @@ class ContractsController < ApplicationController
     sales_type_id = params[:sales_type_id].blank? ? nil : params[:sales_type_id]
     @interest_method = sales_type_id.blank? ? [] : HMIS::get_interest_method(sales_type_id)
      respond_to do |format|
-       format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @interest_method } }
+       format.json{ render :json => @interest_method }
      end
   end
 end

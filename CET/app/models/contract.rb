@@ -10,7 +10,7 @@ class Contract < ActiveRecord::Base
   
   before_save :json_serialize
   #after_save  :json_deserialize
-  #after_find  :json_deserialize
+  after_find  :json_deserialize
   
   attr_writer :current_step, :sales_batch_date, :sales_txn_date, :sales_date, :username, :sales_type, :sales_need, 
   :sales_txn_type, :sales_lead_source, :sales_primary_counselor, :sales_secondary_counselor_1

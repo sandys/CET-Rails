@@ -60,19 +60,6 @@ $(function() {
       $("#contract_sales_secondary_counselor_2").autocomplete({source: data});
       $("#contract_sales_secondary_counselor_3").autocomplete({source: data});
     });
-    
-    $.post('/contracts/payment_type', {sales_type_id : id }, function(data) {
-      $(".down_payment_type").autocomplete({source: data});
-    });
-    
-     $.post('/contracts/interest_term', {sales_type_id : id }, function(data) {
-      $("#contract_interest_term").autocomplete({source: data});
-    });
-    
-     $.post('/contracts/interest_method', {sales_type_id : id }, function(data) {
-      $("#contract_interest_method").autocomplete({source: data});
-    });
-    
   });
   
   $("#contract_sales_txn_type").blur(function() {
@@ -173,3 +160,17 @@ jQuery.fn.group_codes = function(location_id){
       $("#item_search_group_code").autocomplete({source: data}); //$(".item_group_code").html(data);
   });
 };
+
+function paymentDetails(sales_type_id){
+  $.post('/contracts/payment_type', {sales_type_id : sales_type_id }, function(data) {
+    $(".down_payment_type").autocomplete({source: data});
+  });
+  
+   $.post('/contracts/interest_term', {sales_type_id : sales_type_id }, function(data) {
+    $("#contract_interest_term").autocomplete({source: data});
+  });
+  
+   $.post('/contracts/interest_method', {sales_type_id : sales_type_id }, function(data) {
+    $("#contract_interest_method").autocomplete({source: data});
+  });
+}

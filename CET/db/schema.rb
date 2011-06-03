@@ -13,8 +13,10 @@
 ActiveRecord::Schema.define(:version => 20110427104729) do
 
   create_table "contracts", :force => true do |t|
-    t.string   "name"
-    t.string   "phone"
+    t.integer  "user_id"
+    t.integer  "contract_no"
+    t.integer  "location_id"
+    t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

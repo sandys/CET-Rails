@@ -64,7 +64,8 @@
     </div>
   <% end %>
   <%= render "#{@contract.current_step}_step", :f => f %>
-  <p><%= f.submit "Continue" %></p>
+  <p><%= f.submit "Continue" unless @contract.last_step? %></p>  
+  <p><%= f.submit "Save Contract" if @contract.last_step? %></p>
   <p><%= f.submit "Back", :name => "back_button" unless @contract.first_step? %></p>
   
 <% end %>
