@@ -41,9 +41,9 @@ $(function() {
       $("#contract_sales_type").autocomplete({source: data});
     });
     
-    $.post('/contracts/item_group_code', {location_id : id }, function(data) {
-      $(".item_group_code").autocomplete({source: data}); //$(".item_group_code").html(data);
-    });
+  //  $.post('/contracts/item_group_code', {location_id : id }, function(data) {
+  //    $(".item_group_code").autocomplete({source: data}); //$(".item_group_code").html(data);
+  //  });
 
   });
   
@@ -82,13 +82,19 @@ $(function() {
     });
   });
   
-  $(".item_group_code").blur(function() {
-    var id = this.id.match(/\d+/)[0];
-    $.post('/contracts/item_category_code', {group_code_id : id }, function(data) {
-      $("#contract_item_"+id+"_category_code").autocomplete({source: data});
+  $("#item_search_group_code").change(function() {
+    var group_code = $(this).val();
+    $.post('/contracts/item_category_code', {group_code_id : group_code }, function(data) {
+      $("#item_search_category_code").autocomplete({source: data});
     });
   });
   
+  
+  $("#item_search_category_code").focus(function() {
+    $.post('/contracts/item_category_code', {group_code_id : $('#item_search_group_code').val() }, function(data) {
+     $("#item_search_category_code").autocomplete({source: data});
+    });
+  });
   
   // CUSTOMER DETAILS SEARCH AJAX FORM SUBMIT
   $("#customer_search").submit(function(event){
@@ -122,7 +128,6 @@ $(function() {
     /* Send the data using post and put the results in a div */
     $.post( '/contracts/item_search', $(this).serialize(),
       function( data ) {
-          console.log(data);
           var match = $("input[name*='final_code']").filter(function(index){ 
             if ($(this).val()== ""){ 
               return $(this);
@@ -154,4 +159,17 @@ jQuery.fn.resetfield = function(txt){
     this.val(txt);
     this.addClass("dull-txt");
    }
+};
+
+jQuery.fn.clearRow = function(number){
+  $("input[name*="+ number +"]").each(function(){
+    $(this).val("");
+  });
+};
+
+
+jQuery.fn.group_codes = function(location_id){
+  $.post('/contracts/item_group_code', {location_id : location_id }, function(data) {
+      $("#item_search_group_code").autocomplete({source: data}); //$(".item_group_code").html(data);
+  });
 };

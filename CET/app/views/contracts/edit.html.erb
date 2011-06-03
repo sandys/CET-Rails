@@ -28,12 +28,18 @@
   <div>
   	<%= form_tag('/contracts/item_search', :id => "item_search") do -%>
 			<%= text_field_tag "item_search[item_code]", "Item code", :class => "dull-txt", :onfocus => "$(this).clearfield('Item code');", :onblur => "$(this).resetfield('Item code');"%>
-			<%= text_field_tag "item_search[item_desc]", "Item Description", :class => "dull-txt", :onfocus => "$(this).clearfield('Item description');", :onblur => "$(this).resetfield('Item description');"%>
-			<%= text_field_tag "item_search[group_code]"%>
-			<%= text_field_tag "item_search[category_code]"%>
+			<span>Or</span>			
+			<%= text_field_tag "item_search[item_desc]", "Item description", :class => "dull-txt", :onfocus => "$(this).clearfield('Item description');", :onblur => "$(this).resetfield('Item description');"%>
+			<span>Or</span>
+			<%= text_field_tag "item_search[group_code]", "Group code", :class => "dull-txt", :onfocus => "$(this).clearfield('Group code');", :onblur => "$(this).resetfield('Group code');"%>
+			<%= text_field_tag "item_search[category_code]", "Category code", :class => "dull-txt", :onfocus => "$(this).clearfield('Category code');", :onblur => "$(this).resetfield('Category code');"%>
 			<%= submit_tag "Search" %>
 	  <% end -%>
   </div>
+  
+  <script type="text/javascript" charset="utf-8">
+		$("#item_search_group_code").group_codes(<%= @contract.data["location_id"] %>);  
+  </script>
 
   <br />
   <br />
