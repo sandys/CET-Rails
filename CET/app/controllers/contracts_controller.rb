@@ -13,7 +13,6 @@ class ContractsController < ApplicationController
     session[:cparams] ||= {}
     @contract = current_user.contracts.new(session[:cparams])
     @contract.data = session[:cparams]
-      puts "************#{@contract.inspect}"
     @users = HMIS::users
     #@locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
@@ -64,7 +63,7 @@ class ContractsController < ApplicationController
     
     respond_to do |format|
       unless @contract.new_record?
-        #@contract.async_contract_entry()
+        @contract.async_contract_entry()
         session[:cstep] = session[:cparams] = nil
         format.html{ redirect_to contracts_url, :notice => "Contract created successfully." }
       else
@@ -120,12 +119,12 @@ class ContractsController < ApplicationController
         @contract.previous_step
       elsif @contract.last_step?
         session[:cstep] = session[:cparams] = nil
+        @contract.async_contract_entry()
         format.html{ redirect_to contracts_url, :notice => "Contract updated successfully." }
       else
         @contract.next_step
       end
       session[:cstep] = @contract.current_step
-      #@contract.save!
       format.html { redirect_to(:action => "edit") }
     end
   end
