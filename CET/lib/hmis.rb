@@ -67,7 +67,7 @@ module HMIS
 	  
 	  
 	  def customer_search(options)
-	    {:first_name => "Akshay", :middle_name => "", :last_name => "Gupta", :zipcode => "55483", :address => "Memphis street", :city => "Stanford", :state => "SN", :phone => "23424723"}
+	    {:first_name => "Richard", :middle_name => "", :last_name => "Brenson", :zipcode => "55483", :address => "Memphis street", :city => "Stanford", :state => "SN", :phone => "23424723"}
 	  end
 	  
  #taken from NSMG.jsp (to figure out which function is called for which UI element) and GetHMISData.java

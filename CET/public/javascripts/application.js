@@ -98,13 +98,19 @@ $(function() {
     $.post( '/contracts/customer_search', $(this).serialize(),
       function( data ) {
           console.log(data);
-          $('input').filter(function() {
-            if(this.id.match(/contract_personal_\d_first_name/).val() == ""){
-              var id = this.id.match(/\d+/)[0];
-              console.log(id);
-              $(this).val(data["first_name"]);
+          var match = $("input[name*='first_name']").filter(function(index){ 
+            if ($(this).val()== ""){ 
+              return $(this);
             }
-          });
+          }).filter(":first")[0].id.match(/\d+/)[0];
+         $("#contract_personal_" + match + "_first_name").val(data["first_name"]);
+         $("#contract_personal_" + match + "_middle_name").val(data["middle_name"]);
+         $("#contract_personal_" + match + "_last_name").val(data["last_name"]);
+         $("#contract_personal_" + match + "_zipcode").val(data["zipcode"]);
+         $("#contract_personal_" + match + "_address").val(data["address"]);
+         $("#contract_personal_" + match + "_city").val(data["city"]);
+         $("#contract_personal_" + match + "_state").val(data["state"]);
+         $("#contract_personal_" + match + "_phone").val(data["phone"]);
       }
     );
   });
