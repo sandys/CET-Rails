@@ -50,7 +50,7 @@ $(function() {
   $("#contract_sales_type").blur(function() {
     var id = $("#contract_sales_type").val();
     $.post('/contracts/sales_txn_type', {sales_type_id : id }, function(data) {
-      $("#contract_sales_txn_type").autocomplete({source: data}); //$("#contract_sales_txn_type").html(data);
+      $("#contract_sales_txn_type").autocomplete({source: data, autoFocus: true}); //$("#contract_sales_txn_type").html(data);
     });
     
     $.post('/contracts/sales_counselor', {sales_type_id : id }, function(data) {

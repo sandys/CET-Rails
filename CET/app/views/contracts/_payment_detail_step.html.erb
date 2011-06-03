@@ -10,11 +10,11 @@
     <tbody>
       <tr>
           <td><b>Terms</b></td>
-          <td><%= text_field_tag "contract[interest_term]", @interest_term %></td>
+          <td><%= text_field_tag "contract[interest_term]", @interest_term, :class => "ac_field"  %></td>
           <td><b>Payment Start Date</b></td>
           <td><%= text_field_tag "contract[interest_payment_start_date]", @interest_payment_start_date %></td>
           <td><b>Interest Method</b></td>
-          <td><%= text_field_tag  "contract[interest_method]", @interest_method%></td>
+          <td><%= text_field_tag  "contract[interest_method]", @interest_method, :class => "ac_field" %></td>
       </tr>
       <tr>
           <td><b>Interest Rate</b></td>
@@ -49,7 +49,7 @@
 				<%= text_field_tag "contract[payment][#{item}][amount]", (@payment_details.nil? ? "" : @payment_details[item.to_s]["amount"]), :size => 10%>
 			</td>
 			<td>
-				<%= text_field_tag "contract[payment][#{item}][type]", (@payment_details.nil? ? "" : @payment_details[item.to_s]["type"]), :class => "down_payment_type" %>
+				<%= text_field_tag "contract[payment][#{item}][type]", (@payment_details.nil? ? "" : @payment_details[item.to_s]["type"]), :class => "down_payment_type ac_field" %>
 				<%#= select_box("contract[payment][#{item}][type]", (@payment_details.nil? ? [] : @payment_details[item.to_s]["type"]) , :style => "width: 270px;", :class => "down_payment_type") %>
 			</td>
 			<td>

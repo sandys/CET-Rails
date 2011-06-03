@@ -129,3 +129,8 @@ select {
   text-align: center;
   font-size: 16px;
 }
+
+.ac_field, .customers .ac_field{
+  border: 1px solid #bad3ea;
+  background-color: #e3eef7;
+}
