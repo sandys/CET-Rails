@@ -197,7 +197,7 @@ class ContractsController < ApplicationController
     group_code_id = params[:group_code_id].blank? ? nil : params[:group_code_id]
     @category_codes = group_code_id.blank? ? [] : HMIS::get_category_codes(group_code_id)
      respond_to do |format|
-       format.json{ render :json => category_codes }
+       format.json{ render :json => @category_codes }
        #format.html{ render :partial => 'properties', :layout=>false, :locals => {:item => @category_codes } }
      end
   end
