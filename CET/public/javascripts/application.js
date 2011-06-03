@@ -90,14 +90,13 @@ $(function() {
   });
   
   
-  
+  // CUSTOMER DETAILS SEARCH AJAX FORM SUBMIT
   $("#customer_search").submit(function(event){
     event.preventDefault(); 
 
     /* Send the data using post and put the results in a div */
     $.post( '/contracts/customer_search', $(this).serialize(),
       function( data ) {
-          console.log(data);
           var match = $("input[name*='first_name']").filter(function(index){ 
             if ($(this).val()== ""){ 
               return $(this);
@@ -114,8 +113,34 @@ $(function() {
       }
     );
   });
+  
+  
+  // ITEM SEARCH DETAILS AJAX SUBMIT
+  $("#item_search").submit(function(event){
+    event.preventDefault(); 
+
+    /* Send the data using post and put the results in a div */
+    $.post( '/contracts/item_search', $(this).serialize(),
+      function( data ) {
+          console.log(data);
+          var match = $("input[name*='final_code']").filter(function(index){ 
+            if ($(this).val()== ""){ 
+              return $(this);
+            }
+          }).filter(":first")[0].id.match(/\d+/)[0];
+         $("#contract_item_" + match + "_final_code").val(data["code"]);
+         $("#contract_item_" + match + "_final_desc").val(data["description"]);
+         $("#contract_item_" + match + "_quantity").val(data["quantity"]);
+         $("#contract_item_" + match + "_price").val(data["price"]);
+         $("#contract_item_" + match + "_discount_percent").val(data["discount_percent"]);
+         $("#contract_item_" + match + "_discount_reason").val(data["discount_reason"]);
+      }
+    );
+  });
 })
 
+
+// Clear field on focus and remove class dull-txt
 jQuery.fn.clearfield = function(txt){
   if (this.val() == txt) {
     this.val('');
@@ -123,6 +148,7 @@ jQuery.fn.clearfield = function(txt){
    }
 };
 
+// Set the default value in text field and add the class dull-txt
 jQuery.fn.resetfield = function(txt){
   if (this.val() == "") {
     this.val(txt);

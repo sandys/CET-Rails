@@ -70,6 +70,10 @@ module HMIS
 	    {:first_name => "Richard", :middle_name => "", :last_name => "Brenson", :zipcode => "55483", :address => "Memphis street", :city => "Stanford", :state => "SN", :phone => "23424723"}
 	  end
 	  
+	  def item_search(options)
+	    {:code => "AACPN", :description => "Pack of scented flowers", :quantity => 1, :price => 65, :discount_percent => 7, :discount_reason => "Package Discount"}
+	  end
+	  
  #taken from NSMG.jsp (to figure out which function is called for which UI element) and GetHMISData.java
  #in the jsp file, when any element is triggered, the javascript constructs a GET query of the type "/NSMG/GetHMISData?something='something'&menutype=somemenu
  #in the .java file there is a function getData which switches on the "menutype" and takes the "something" as arguments to call the actual function

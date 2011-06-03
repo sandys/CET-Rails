@@ -27,10 +27,13 @@
 	  <p>Would you like to search for an existing item?</p>
   </div>
   <div>
-	  <%= text_field_tag "item_search[item_code]"%>
-	  <%= text_field_tag "item_search[item_desc]"%>
-	  <%= text_field_tag "item_search[group_code]"%>
-	  <%= text_field_tag "item_search[category_code]"%>
+  	<%= form_tag('/contracts/item_search', :id => "item_search") do -%>
+			<%= text_field_tag "item_search[item_code]", "Item code", :class => "dull-txt", :onfocus => "$(this).clearfield('Item code');", :onblur => "$(this).resetfield('Item code');"%>
+			<%= text_field_tag "item_search[item_desc]", "Item Description", :class => "dull-txt", :onfocus => "$(this).clearfield('Item description');", :onblur => "$(this).resetfield('Item description');"%>
+			<%= text_field_tag "item_search[group_code]"%>
+			<%= text_field_tag "item_search[category_code]"%>
+			<%= submit_tag "Search" %>
+	  <% end -%>
   </div>
 
   <br />

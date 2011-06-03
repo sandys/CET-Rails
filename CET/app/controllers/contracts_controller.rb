@@ -11,8 +11,6 @@ class ContractsController < ApplicationController
     @contract = current_user.contracts.new(session[:cparams])
     @contract.data = session[:cparams]
 
-    puts "******************************#{session[:cparams].inspect}"
-    puts "****************************#{@contract.inspect}"
     @users = HMIS::users
     #@locations = HMIS::locations(current_user.email)
     @sales_need = HMIS::sales_need()
@@ -91,25 +89,20 @@ class ContractsController < ApplicationController
     @contract = current_user.contracts.find(params[:id])
     @contract.current_step = session[:cstep]
     @contract.data = session[:cparams] #JSON.parse(params[:contract].to_json)
-    if @contract.valid?
+    
+    respond_to do |format|
       if params[:back_button]
         @contract.previous_step
+      elsif @contract.last_step?
+        @contract.update_attributes(:data => @contract.data, :contract_no => @contract.data["contract_no"], :location_id => @contract.data["location_id"])
+        session[:cstep] = session[:cparams] = nil
+        format.html{ redirect_to contracts_url, :notice => "Contract updated successfully." }
       else
         @contract.next_step
       end
       session[:cstep] = @contract.current_step
+      format.html { redirect_to(:action => "edit") }
     end
-    respond_to do |format|
-      if @contract.last_step?
-        @contract.update_attributes(:data => @contract.data, :contract_no => @contract.data["contract_no"], :location_id => @contract.data["location_id"])
-        #@contract.async_contract_entry()
-        session[:cstep] = session[:cparams] = nil
-        format.html{ redirect_to contracts_url, :notice => "Contract updated successfully." }
-      else
-        #flash[:error] = "Error Occured"
-        format.html { redirect_to(:action => "edit") }
-      end
-     end
   end
   
   def customer_search
@@ -121,6 +114,14 @@ class ContractsController < ApplicationController
     respond_to do |format|
        format.json{ render :json => @result }
      end
+  end
+  
+  def item_search
+    code, desc, group_code, category_code = params[:item_search][:item_code],params[:item_search][:item_desc], params[:item_search][:group_code], params[:item_search][:category_code]
+    @result = HMIS::item_search(:code => code, :desc => desc, :group_code => group_code, :category_code => category_code)
+    respond_to do |format|
+       format.json{ render :json => @result }
+     end 
   end
   
   def usernames
