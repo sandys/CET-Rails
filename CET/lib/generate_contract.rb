@@ -92,6 +92,7 @@ module GenerateContract
 			#, :headers => ["Down Pymt Dt", "Amount", "Down Pymt_Type", "Remarks"]
 			
 			pdf.move_down(20)
+=begin
 			images  = contract["file"].map do |key,value| 
 				unless value['image_name'].blank? 
 					[ value[:image_name.to_s],
@@ -101,8 +102,8 @@ module GenerateContract
 					["", ""]
 				end
 			end
-
 			pdf.table images,:row_colors => ["FFFFFF", "DDDDDD"]
+=end
 			#, :headers =>  ["Image Name", "Document Type",   "Uploaded File"]
 			pdf.render_file(Rails.root.join('files/pdf',"#{contract['location_id']}_#{contract['contract_no']}.pdf"))
 		end
@@ -144,6 +145,7 @@ module GenerateContract
 				end
 			end
 			
+=begin
 			contract["file"].each do |key,value| 
 				unless value['image_name'].blank? 
 					sheet.row(key.to_i+19).concat ["", "", "", "", "", "", "", "", value["image_name"], value["upload_type"], ""]
@@ -151,6 +153,7 @@ module GenerateContract
 					sheet.row(key.to_i+19).concat ["", "", "", "", "", "", "", "", "", "", ""]
 				end
 			end
+=end
 			
 			
 			contract["payment"].each do |key,value| 
