@@ -34,15 +34,15 @@
 			<span>Or</span>			
 			<%= text_field_tag "item_search[item_desc]", "Item description", :class => "dull-txt", :onfocus => "$(this).clearfield('Item description');", :onblur => "$(this).resetfield('Item description');"%>
 			<span>Or</span>
-			<%= text_field_tag "item_search[group_code]", "Group code", :class => "dull-txt", :onfocus => "$(this).clearfield('Group code');", :onblur => "$(this).resetfield('Group code');"%>
+			<%= text_field_tag "item_search[group_code]", "Group code", :class => "ac_field dull-txt", :onfocus => "$(this).clearfield('Group code');", :onblur => "$(this).resetfield('Group code');"%>
 			<span>Or</span>
-			<%= text_field_tag "item_search[category_code]", "Category code", :class => "dull-txt", :onfocus => "$(this).clearfield('Category code');", :onblur => "$(this).resetfield('Category code');"%>
+			<%= text_field_tag "item_search[category_code]", "Category code", :class => "ac_field dull-txt", :onfocus => "$(this).clearfield('Category code');", :onblur => "$(this).resetfield('Category code');"%>
 			<%= submit_tag "Search" %>
 	  <% end -%>
   </div>
   
-  <script type="text/javascript" charset="utf-8">
-		$("#item_search_group_code").group_codes(<%= @contract.data["location_id"] %>);  
+  <script type="text/javascript">
+		$("#item_search_group_code").group_codes(<%= sanitize(@contract.data["location_id"].to_json) %>);  
   </script>
 
   <br />

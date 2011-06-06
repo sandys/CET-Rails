@@ -9,77 +9,97 @@ $(function() {
   $(".down_payment_date").datepicker();
   $("#contract_interest_payment_start_date").datepicker();
   
-  $("#contract_username").focus(function() {
+  $("#contract_username").click(function() {
     $.post('/contracts/usernames', {}, function(data) {
-     $("#contract_username").autocomplete({source: data});
+      $("#contract_username").autocomplete({source: data, 
+        select: function(event, ui) {
+          var id = ui["item"]["value"];
+          $.post('/contracts/user_password', {user_id : id }, function(data) {
+            $("#contract_password").val(data);
+          });
+          
+          $.post('/contracts/user_location', {user_id : id }, function(data) {
+           // $("#contract_location_id").html(data);
+           $("#contract_location_id").autocomplete({source: data, 
+             select: function(event, ui) {
+               var id = ui["item"]["value"];
+               $.post('/contracts/sales_type', {location_id : id }, function(data) {
+                 $("#contract_sales_type").autocomplete({source: data,
+                   select: function(event, ui) {
+                     var id = ui["item"]["value"];
+                      $.post('/contracts/sales_txn_type', {sales_type_id : id }, function(data) {
+                        $("#contract_sales_txn_type").autocomplete({source: data, 
+                          select: function(event, ui) {
+                            var id = ui["item"]["value"];
+                            $.post('/contracts/sales_lead_source', {sales_txn_type_id : id }, function(data) {
+                              $("#contract_sales_lead_source").autocomplete({source: data});
+                            });
+                          }
+                        }); 
+                      });
+                    
+                      $.post('/contracts/sales_counselor', {sales_type_id : id }, function(data) {
+                        $("#contract_sales_primary_counselor").autocomplete({source: data});
+                        $("#contract_sales_secondary_counselor_1").autocomplete({source: data});
+                        $("#contract_sales_secondary_counselor_2").autocomplete({source: data});
+                        $("#contract_sales_secondary_counselor_3").autocomplete({source: data});
+                      });
+                    }
+                 });
+               });
+             }
+           });
+          });
+        }
+      });
+      $("#contract_username").autocomplete("search", $(this).val());
     });
   });
-  
-  $("#contract_username").blur(function() {
-    var id = $(this).val();
-    $.post('/contracts/user_password', {user_id : id }, function(data) {
-      $("#contract_password").val(data);
-    });
     
-    $.post('/contracts/user_location', {user_id : id }, function(data) {
-     // $("#contract_location_id").html(data);
-     $("#contract_location_id").autocomplete({source: data});
-    });
-  });
-  
+  // auto focus of all the options
   
   $("#contract_location_id").focus(function() {
-    $.post('/contracts/user_location', {user_id : $('#contract_username').val() }, function(data) {
-     $("#contract_location_id").autocomplete({source: data});
-    });
+    $("#contract_location_id").autocomplete( "search", $(this).val());
   });
   
-  $("#contract_location_id").blur(function() {
-    var id = $("#contract_location_id").val();
-    $.post('/contracts/sales_type', {location_id : id }, function(data) {
-      //$("#contract_sales_type").html(data);
-      $("#contract_sales_type").autocomplete({source: data});
-    });
-    
-  //  $.post('/contracts/item_group_code', {location_id : id }, function(data) {
-  //    $(".item_group_code").autocomplete({source: data}); //$(".item_group_code").html(data);
-  //  });
-
+  $("#contract_sales_type").focus(function(){
+     $("#contract_sales_type").autocomplete( "search", $(this).val());
   });
   
-  $("#contract_sales_type").blur(function() {
-    var id = $("#contract_sales_type").val();
-    $.post('/contracts/sales_txn_type', {sales_type_id : id }, function(data) {
-      $("#contract_sales_txn_type").autocomplete({source: data, autoFocus: true}); //$("#contract_sales_txn_type").html(data);
-    });
-    
-    $.post('/contracts/sales_counselor', {sales_type_id : id }, function(data) {
-      $("#contract_sales_primary_counselor").autocomplete({source: data});
-      $("#contract_sales_secondary_counselor_1").autocomplete({source: data});
-      $("#contract_sales_secondary_counselor_2").autocomplete({source: data});
-      $("#contract_sales_secondary_counselor_3").autocomplete({source: data});
-    });
+  $("#contract_sales_need").focus(function(){
+    $("#contract_sales_need").autocomplete( "search", $(this).val());
   });
   
-  $("#contract_sales_txn_type").blur(function() {
-    var id = $("#contract_sales_txn_type").val();
-    $.post('/contracts/sales_lead_source', {sales_txn_type_id : id }, function(data) {
-      $("#contract_sales_lead_source").autocomplete({source: data});
-    });
+  $("#contract_sales_txn_type").focus(function(){
+     $("#contract_sales_txn_type").autocomplete( "search", $(this).val());
   });
   
-  $("#item_search_group_code").change(function() {
-    var group_code = $(this).val();
-    $.post('/contracts/item_category_code', {group_code_id : group_code }, function(data) {
-      $("#item_search_category_code").autocomplete({source: data});
-    });
+  $("#contract_sales_primary_counselor").focus(function(){
+      $("#contract_sales_primary_counselor").autocomplete( "search", $(this).val());
   });
   
+  $("#contract_sales_secondary_counselor_1").focus(function(){
+      $("#contract_sales_secondary_counselor_1").autocomplete( "search", $(this).val());
+  });
+  
+  $("#contract_sales_lead_source").focus(function(){
+    $("#contract_sales_lead_source").autocomplete( "search", $(this).val());
+  });
+  
+  $("#item_search_group_code").focus(function(){
+    $("#item_search_group_code").autocomplete( "search", $(this).val());
+  });
   
   $("#item_search_category_code").focus(function() {
-    $.post('/contracts/item_category_code', {group_code_id : $('#item_search_group_code').val() }, function(data) {
-     $("#item_search_category_code").autocomplete({source: data});
-    });
+    $("#item_search_category_code").autocomplete( "search", $(this).val());
+  });
+  
+  $("#contract_interest_method").focus(function(){
+    $("#contract_interest_method").autocomplete( "search", $(this).val());
+  });
+  
+  $("#contract_interest_term").focus(function(){
+    $("#contract_interest_term").autocomplete( "search", $(this).val());
   });
   
   // CUSTOMER DETAILS SEARCH AJAX FORM SUBMIT
@@ -156,20 +176,30 @@ jQuery.fn.clearRow = function(number){
 
 jQuery.fn.group_codes = function(location_id){
   $.post('/contracts/item_group_code', {location_id : location_id }, function(data) {
-      $("#item_search_group_code").autocomplete({source: data}); //$(".item_group_code").html(data);
+      $("#item_search_group_code").autocomplete({source: data,
+        select: function(event, ui){
+          var id = ui["item"]["value"];
+          $.post('/contracts/item_category_code', {group_code_id : id }, function(data) {
+           $("#item_search_category_code").autocomplete({source: data});
+          });
+        }
+      });
   });
 };
 
 function paymentDetails(sales_type_id){
   $.post('/contracts/payment_type', {sales_type_id : sales_type_id }, function(data) {
     $(".down_payment_type").autocomplete({source: data});
+    //$(".down_payment_type").autocomplete( "search", $(this).val());
   });
   
    $.post('/contracts/interest_term', {sales_type_id : sales_type_id }, function(data) {
     $("#contract_interest_term").autocomplete({source: data});
+    //$("#contract_interest_term").autocomplete( "search", $(this).val());
   });
   
    $.post('/contracts/interest_method', {sales_type_id : sales_type_id }, function(data) {
     $("#contract_interest_method").autocomplete({source: data});
+    //$("#contract_interest_method").autocomplete( "search", $(this).val());
   });
 }
