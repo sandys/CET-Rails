@@ -54,7 +54,6 @@ $(function() {
     });
     
     $.post('/contracts/sales_counselor', {sales_type_id : id }, function(data) {
-      console.log(data);
       $("#contract_sales_primary_counselor").autocomplete({source: data});
       $("#contract_sales_secondary_counselor_1").autocomplete({source: data});
       $("#contract_sales_secondary_counselor_2").autocomplete({source: data});

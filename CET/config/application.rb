@@ -33,7 +33,7 @@ module CET
 
     # JavaScript files you want as :defaults (application.js is always included).
     if Rails.env.production? 
-      config.action_view.javascript_expansions[:defaults] = %w(jquery.min jquery-ui.min rails) 
+      config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui rails) 
     else 
       config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui rails) 
     end
