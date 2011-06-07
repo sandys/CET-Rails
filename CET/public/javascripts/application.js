@@ -187,10 +187,10 @@ jQuery.fn.group_codes = function(location_id){
 };
 
 function paymentDetails(sales_type_id){
-  $.post('/contracts/payment_type', {sales_type_id : sales_type_id }, function(data) {
-    $(".down_payment_type").autocomplete({source: data});
+  //$.post('/contracts/payment_type', {sales_type_id : sales_type_id }, function(data) {
+    //$(".down_payment_type").autocomplete({source: data});
     //$(".down_payment_type").autocomplete( "search", $(this).val());
-  });
+  //});
   
    $.post('/contracts/interest_term', {sales_type_id : sales_type_id }, function(data) {
     $("#contract_interest_term").autocomplete({source: data});

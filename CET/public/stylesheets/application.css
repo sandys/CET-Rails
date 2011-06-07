@@ -83,10 +83,6 @@ input {
   margin: 0;
 }
 
-select {
-  width: 80px;
-}
-
 .customers {
     border-collapse: collapse;
     font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
