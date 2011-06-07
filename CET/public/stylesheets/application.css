@@ -46,7 +46,7 @@ input {
   border: solid 1px #6C6;
 }
 
-#flash_error, #flash_alert {
+#flash_error, #flash_alert, .ac_dis_field {
   background-color: #FCC;
   border: solid 1px #C66;
 }

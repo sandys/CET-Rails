@@ -4,12 +4,21 @@
     
     <!-- HMIS username -->
     <span>
-      <%= label_tag 'contract_username', "HMIS Username" %>
+      <%= label_tag 'contract_username', "HMIS User " %>
       <%= f.text_field :username, :class => "ac_field" %>
       <%#= select_box('contract[username]', @users) %>
     </span>
     
+    <!--location -->
+    <span>
+      <%= f.label 'location_id', "Batch Location" %>
+      <%= f.text_field :location_id, :class => "ac_dis_field"%>
+      <%#= f.select("location_id", [], { :include_blank => true }) %>
+      <%#=  select_box('contract[location_id]', @locations) %>
+    </span>
     
+    <br />
+    <br />
     <span>
       <%#= label_tag 'contract_password', "Password" %>
       <%= f.hidden_field :password %>
@@ -26,20 +35,18 @@
       <%= f.text_field :contract_no %>
     </span>
     
-    <!--location -->
+     
     <span>
-      <%= f.label 'location_id', "Batch Location" %>
-      <%= f.text_field :location_id, :class => "ac_field"%>
-      <%#= f.select("location_id", [], { :include_blank => true }) %>
-      <%#=  select_box('contract[location_id]', @locations) %>
+      <%= label_tag 'contract_sales_date', "Sales Date" %>
+      <%= f.text_field :sales_date %>
     </span>
     
    <br />
    <br />
-   
+   <br />
     <span>
       <%= label_tag 'contract_sale_type', "Sales Type" %>
-      <%= f.text_field :sales_type, :class => "ac_field"  %>
+      <%= f.text_field :sales_type, :class => "ac_dis_field"  %>
       <%#=  select_box('contract[sales_type]', []) %>
     </span>
     
@@ -56,10 +63,11 @@
     
     <span>
       <%= label_tag 'contract_sale_txn_type', "Txn Type" %>
-      <%= f.text_field :sales_txn_type, :class => "ac_field"  %>
+      <%= f.text_field :sales_txn_type, :class => "ac_dis_field"  %>
       <%#=  select_box('contract[sales_txn_type]', []) %>
     </span>
 
+    <br />
     <br />
     <br />
     <span>
@@ -73,27 +81,25 @@
     </span>
     
     <span>
-      <%= label_tag 'contract_sales_date', "Sales Date" %>
-      <%= f.text_field :sales_date %>
+      <%= label_tag 'contract_sales_leadsource', "Lead Source" %>
+      <%= f.text_field :sales_lead_source, :class => "ac_dis_field"  %>
+      <%#=  select_box('contract[sales_lead_source]', []) %>
     </span>
     
-    <p>
-      <%= label_tag 'contract_sales_leadsource', "Lead Source" %>
-      <%= f.text_field :sales_lead_source, :class => "ac_field"  %>
-      <%#=  select_box('contract[sales_lead_source]', []) %>
-    </p>
-    
-    <p>
+    <br />
+    <br />
+    <br />
+    <span>
       <%= label_tag 'contract_sales_primary_counselor', "Primary Counselor" %>
-      <%= f.text_field :sales_primary_counselor, :class => "ac_field"  %>
+      <%= f.text_field :sales_primary_counselor, :class => "ac_dis_field"  %>
       <%#=  select_box('contract[sales_primary_counselor]', []) %>
-    </p>
+    </span>
     
-    <p>
+    <span>
       <%= label_tag 'contract_sales_secondary_counselor_1', "Secondary Counselor" %>
-      <%= f.text_field :sales_secondary_counselor_1, :class => "ac_field"  %>
+      <%= f.text_field :sales_secondary_counselor_1, :class => "ac_dis_field"  %>
       <%#=  select_box('contract[sales_secondary_counselor_1]', []) %>
-    </p>
+    </span>
     
     <p>
       <%#= label_tag 'contract_sales_secondary_counselor_2', "Secondary Counselor 2" %>
@@ -110,4 +116,5 @@
   
   <br />
   <br />  
+  <br />
   <p><%#= f.submit "Save Contract Entry" %></p>

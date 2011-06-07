@@ -2,7 +2,6 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $(function() {
-
   $("#contract_sales_batch_date").datepicker();
   $("#contract_sales_txn_date").datepicker();
   $("#contract_sales_date").datepicker();
@@ -19,36 +18,36 @@ $(function() {
           });
           
           $.post('/contracts/user_location', {user_id : id }, function(data) {
-           // $("#contract_location_id").html(data);
-           $("#contract_location_id").autocomplete({source: data, 
-             select: function(event, ui) {
-               var id = ui["item"]["value"];
-               $.post('/contracts/sales_type', {location_id : id }, function(data) {
-                 $("#contract_sales_type").autocomplete({source: data,
-                   select: function(event, ui) {
-                     var id = ui["item"]["value"];
+            // $("#contract_location_id").html(data);
+            $("#contract_location_id").autocomplete({source: data, 
+              select: function(event, ui) {
+                var id = ui["item"]["value"];
+                $.post('/contracts/sales_type', {location_id : id }, function(data) {
+                  $("#contract_sales_type").autocomplete({source: data,
+                    select: function(event, ui) {
+                      var id = ui["item"]["value"];
                       $.post('/contracts/sales_txn_type', {sales_type_id : id }, function(data) {
                         $("#contract_sales_txn_type").autocomplete({source: data, 
                           select: function(event, ui) {
                             var id = ui["item"]["value"];
                             $.post('/contracts/sales_lead_source', {sales_txn_type_id : id }, function(data) {
-                              $("#contract_sales_lead_source").autocomplete({source: data});
+                              $("#contract_sales_lead_source").autocomplete({source: data}).removeClass("ac_dis_field").addClass("ac_field");
                             });
                           }
-                        }); 
+                        }).removeClass("ac_dis_field").addClass("ac_field"); 
                       });
                     
                       $.post('/contracts/sales_counselor', {sales_type_id : id }, function(data) {
-                        $("#contract_sales_primary_counselor").autocomplete({source: data});
-                        $("#contract_sales_secondary_counselor_1").autocomplete({source: data});
-                        $("#contract_sales_secondary_counselor_2").autocomplete({source: data});
-                        $("#contract_sales_secondary_counselor_3").autocomplete({source: data});
+                        $("#contract_sales_primary_counselor").autocomplete({source: data}).removeClass("ac_dis_field").addClass("ac_field");
+                        $("#contract_sales_secondary_counselor_1").autocomplete({source: data}).removeClass("ac_dis_field").addClass("ac_field");
+                        $("#contract_sales_secondary_counselor_2").autocomplete({source: data}).removeClass("ac_dis_field").addClass("ac_field");
+                        $("#contract_sales_secondary_counselor_3").autocomplete({source: data}).removeClass("ac_dis_field").addClass("ac_field");
                       });
                     }
-                 });
-               });
-             }
-           });
+                  }).removeClass("ac_dis_field").addClass("ac_field");
+                });
+              }
+            }).removeClass("ac_dis_field").addClass("ac_field");
           });
         }
       });
@@ -195,11 +194,9 @@ function paymentDetails(sales_type_id){
   
    $.post('/contracts/interest_term', {sales_type_id : sales_type_id }, function(data) {
     $("#contract_interest_term").autocomplete({source: data});
-    //$("#contract_interest_term").autocomplete( "search", $(this).val());
   });
   
    $.post('/contracts/interest_method', {sales_type_id : sales_type_id }, function(data) {
     $("#contract_interest_method").autocomplete({source: data});
-    //$("#contract_interest_method").autocomplete( "search", $(this).val());
   });
 }
