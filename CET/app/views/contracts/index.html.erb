@@ -10,10 +10,10 @@
     <tr>
       <td><%= contract.contract_no %></td>
       <td><%= contract.location_id %></td>
-      <td><%= link_to "Edit", edit_contract_path(contract) %></td>
+      <td><%= link_to "Edit", edit_contract_path(contract), :class => "button gray small" %></td>
     </tr>
   <% end %>
 </table>
 <% end %>
 
-<p><%= link_to "New Contract", new_contract_path %></p>
+<p><%= link_to "New Contract", new_contract_path, :class => "button blue" %></p>

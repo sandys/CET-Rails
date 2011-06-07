@@ -1,11 +1,20 @@
 <% title "Payment Options" %>
-<div class="bluebg">
+<div class="bluebg green">
 	<%= "Your total is $ #{total_cost(@contract)}"%>
 </div>
 
 <br />
 <br />
 
+<div align="center">
+<%#= link_to "Proceed to Pay", "#", :id => "cc_payment", :class => "button blue" %>
+<%= link_to "Finance Options", "#", :id => "financing_options", :class => "button blue" %>
+</div>
+<br />
+<br />
+<br />
+<br />
+<div id="financing_options_details" style="display:none;" align="center">
   <table class="customers">
     <tbody>
       <tr>
@@ -31,34 +40,40 @@
   <br />
 
 
-<table class="customers">
-    <tbody>
-      <tr>
-        <th>Down pymt date</th>
-        <th>Amount</th>
-        <th>Down pymt type</th>
-        <th>remarks</th>
-      </tr>
+		<table class="customers">
+				<tbody>
+				  <tr>
+				    <th>Down pymt date</th>
+				    <th>Amount</th>
+				    <th>Down pymt type</th>
+				    <th>remarks</th>
+				  </tr>
 
-		<% (1..3).each do |item| %>
-		<tr class=<%= item%2 == 0 ? "alt" : ""%>>
-			<td>
-				<%= text_field_tag "contract[payment][#{item}][date]", (@payment_details.nil? ? "" : @payment_details[item.to_s]["date"]), :size => 10, :class => "down_payment_date" %>
-			</td>
-			<td>
-				<%= text_field_tag "contract[payment][#{item}][amount]", (@payment_details.nil? ? "" : @payment_details[item.to_s]["amount"]), :size => 10%>
-			</td>
-			<td>
-				<%= select_tag "contract[payment][#{item}][type]", options_for_select(["", "Deferred Down Payment"], (@payment_details.nil? ? "" : @payment_details[item.to_s]["type"])), :class => "down_payment_type" %>
-				<%#= select_box("contract[payment][#{item}][type]", (@payment_details.nil? ? [] : @payment_details[item.to_s]["type"]) , :style => "width: 270px;", :class => "down_payment_type") %>
-			</td>
-			<td>
-				<%= text_field_tag "contract[payment][#{item}][remarks]", (@payment_details.nil? ? "" : @payment_details[item.to_s]["remarks"]), :size => 10%>
-			</td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
-<script type="text/javascript">
-	paymentDetails(<%= sanitize(@contract.data[:sales_type.to_s].to_json) %>);
-</script>
+				<% (1..3).each do |item| %>
+				<tr class=<%= item%2 == 0 ? "alt" : ""%>>
+					<td>
+						<%= text_field_tag "contract[payment][#{item}][date]", (@payment_details.nil? ? "" : @payment_details[item.to_s]["date"]), :size => 10, :class => "down_payment_date" %>
+					</td>
+					<td>
+						<%= text_field_tag "contract[payment][#{item}][amount]", (@payment_details.nil? ? "" : @payment_details[item.to_s]["amount"]), :size => 10%>
+					</td>
+					<td>
+						<%= select_tag "contract[payment][#{item}][type]", options_for_select(["", "Deferred Down Payment"], (@payment_details.nil? ? "" : @payment_details[item.to_s]["type"])), :class => "down_payment_type" %>
+						<%#= select_box("contract[payment][#{item}][type]", (@payment_details.nil? ? [] : @payment_details[item.to_s]["type"]) , :style => "width: 270px;", :class => "down_payment_type") %>
+					</td>
+					<td>
+						<%= text_field_tag "contract[payment][#{item}][remarks]", (@payment_details.nil? ? "" : @payment_details[item.to_s]["remarks"]), :size => 10%>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<script type="text/javascript">
+			paymentDetails(<%= sanitize(@contract.data[:sales_type.to_s].to_json) %>);
+		</script>
+	<br />
+	<br />
+	<br />
+	<br />
+</div>
+

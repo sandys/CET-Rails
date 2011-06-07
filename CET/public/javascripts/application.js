@@ -147,6 +147,18 @@ $(function() {
       }
     );
   });
+  
+  $("#financing_options").click(function(){
+    $("#cc_payment_details").hide();
+    $("#financing_options_details").show();
+    event.preventDefault();
+  });
+  
+  $("#cc_payment").click(function(){
+    $("#financing_options_details").hide();
+    $("#cc_payment_details").show();
+    event.preventDefault();
+  });
 })
 
 

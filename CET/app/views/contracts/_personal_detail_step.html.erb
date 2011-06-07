@@ -21,7 +21,7 @@
 			<% (1..5).each do |item| %>
 			<tr class=<%= item%2 == 0 ? "alt" : ""%>>
 				<td>
-					<%= select_tag "contract[personal][#{item}][name_type]", options_for_select(@name_types, (@personal_details.nil? ? "" : @personal_details[item.to_s]["name_type"])), :include_blank => true  %>
+					<%= select_tag "contract[personal][#{item}][name_type]", options_for_select(@name_types, (@personal_details.nil? ? "" : @personal_details[item.to_s]["name_type"])), :include_blank => true %>
 				</td>
 				<td>
 					<%= text_field_tag "contract[personal][#{item}][first_name]", (@personal_details.nil? ? "" : @personal_details[item.to_s]["first_name"]) , :size  => 12 %>

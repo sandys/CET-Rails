@@ -119,7 +119,7 @@ class ContractsController < ApplicationController
         @contract.previous_step
       elsif @contract.last_step?
         session[:cstep] = session[:cparams] = nil
-        @contract.async_contract_entry()
+        #@contract.async_contract_entry()
         format.html{ redirect_to contracts_url, :notice => "Contract updated successfully." }
       else
         @contract.next_step

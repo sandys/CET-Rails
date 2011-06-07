@@ -1,6 +1,6 @@
 <% if @contract.current_step == "personal_detail" %>
   <% title "Customer Details" %>
-  <div class="search_details">
+  <div class="search_details green">
 	  Would you like to search for an existing Purchaser?
   </div>
   <br />
@@ -13,7 +13,7 @@
 			<%= text_field_tag "customer_search[zipcode]", "Zipcode", :class => "dull-txt", :onfocus => "$(this).clearfield('Zipcode');", :onblur => "$(this).resetfield('Zipcode');" %>
 			<span>or</span>
 			<%= text_field_tag "customer_search[phone]", "Phone", :class => "dull-txt", :onfocus => "$(this).clearfield('Phone');", :onblur => "$(this).resetfield('Phone');" %>
-			<%= submit_tag "Search" %>
+			<%= submit_tag "Search", :class => "button small blue" %>
 		<% end -%>
 	</div>
 
@@ -23,7 +23,7 @@
 
 <% if @contract.current_step == "item_detail" %>
   <% title "Line Item Details" %>
-  <div class="search_details">
+  <div class="search_details green">
 	  Would you like to search for an existing item?
   </div>
   <br />
@@ -36,7 +36,7 @@
 			<%= text_field_tag "item_search[group_code]", "Group code", :class => "ac_field dull-txt", :onfocus => "$(this).clearfield('Group code');", :onblur => "$(this).resetfield('Group code');"%>
 			<span>Or</span>
 			<%= text_field_tag "item_search[category_code]", "Category code", :class => "ac_field dull-txt", :onfocus => "$(this).clearfield('Category code');", :onblur => "$(this).resetfield('Category code');"%>
-			<%= submit_tag "Search" %>
+			<%= submit_tag "Search", :class => "button small blue" %>
 	  <% end -%>
   </div>
   
@@ -63,11 +63,12 @@
     </div>
   <% end %>
   <%= render "#{@contract.current_step}_step", :f => f %>
-  <p><%= f.submit "NEXT STEP" unless @contract.last_step? %></p>  
-  <p><%= f.submit "Save Contract" if @contract.last_step? %></p>
-  <p><%= f.submit "Back", :name => "back_button" unless @contract.first_step? %></p>
+  <%= f.submit "Back", :name => "back_button", :class => "button blue" unless @contract.first_step? %>
+  <%= f.submit "NEXT STEP", :class => "button blue" unless @contract.last_step? %>  
+ 	<%= f.submit "Save Contract", :class => "button blue" if @contract.last_step? %>
+
   
 <% end %>
 
-<p><%= link_to "Back to List", contracts_path %></p>
+<p><%= link_to "Back to List", contracts_path, :class => "button small gray" %></p>
 
