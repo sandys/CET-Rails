@@ -105,7 +105,7 @@ module GenerateContract
 			pdf.table images,:row_colors => ["FFFFFF", "DDDDDD"]
 =end
 			#, :headers =>  ["Image Name", "Document Type",   "Uploaded File"]
-			pdf.render_file(Rails.root.join('files/pdf',"#{contract['location_id']}_#{contract['contract_no']}.pdf"))
+			pdf.render_file(Rails.root.join('files/pdf',"#{contract['location_id'].to_i}_#{contract['contract_no']}.pdf"))
 		end
 	end
 	
@@ -164,7 +164,7 @@ module GenerateContract
 				end
 			end
 			
-			book.write(Rails.root.join('files/xls',"#{contract['location_id']}_#{contract['contract_no']}.xls"))
+			book.write(Rails.root.join('files/xls',"#{contract['location_id'].to_i}_#{contract['contract_no']}.xls"))
 		end
 	end
 	
@@ -173,7 +173,7 @@ module GenerateContract
 		attr_accessor :list_of_file_paths, :zip_file_path
 
 		def initialize(contract)
-			filename = "#{contract['location_id']}_#{contract['contract_no']}"
+			filename = "#{contract['location_id'].to_i}_#{contract['contract_no']}"
       @zip_file_path = Rails.root.join('files/compress', "#{filename}.zip")
       @list_of_file_paths = [Rails.root.join('files/pdf',"#{filename}.pdf"), Rails.root.join('files/xls', "#{filename}.xls")]
 		end
