@@ -9,12 +9,8 @@ a img {
 }
 
 a {
-  color: #333;
-  text-decoration: none;
-}
-
-a:hover{
   color: #007ead;
+  text-decoration: none;
 }
 
 .clear {
