@@ -10,16 +10,15 @@
   <body>
     <div id="container">
       <div style="float:left;">
-        <h1><%= link_to "CET", "/" %> </h1>
+        <h1><%= link_to "CET-Prototype", "/"%> </h1>
       </div>
       <div style="float:right;">
           <% if user_signed_in? %>
-          <%= current_user.email %> |
-          <span><%= link_to "Sign out", destroy_user_session_path %></span>
+          <%= current_user.email %>
+          <span><%= link_to "Sign out", destroy_user_session_path, :class => "button green" %></span>
           <% else %>
-            <span><%= link_to "Login", new_user_session_url %></span>
-              <span><img src="/images/footer-seperator.gif" height="12px" width="2px" title="" /></span>
-              <span><%= link_to "Register", new_user_registration_url %></span>
+            <span><%= link_to "Login", new_user_session_url, :class => "button green" %></span>
+            <span><%= link_to "Register", new_user_registration_url, :class => "button green" %></span>
           <% end %>
       </div>
       <div style="clear:both;"></div>
