@@ -28,6 +28,7 @@ gem 'resque'
 gem 'redis'
 gem 'redis-namespace'
 gem 'vegas'
+gem 'trinidad'
 
 # Use unicorn as the web server
 # gem 'unicorn'
