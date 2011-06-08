@@ -1,0 +1,1 @@
+jruby -J-Djruby.thread.pooling=true -J-Xmx2048m -J-Druby.native.enabled=false -J-Xms512m --fast --server -S trinidad -e sss_development
