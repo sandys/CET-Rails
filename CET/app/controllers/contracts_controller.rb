@@ -249,4 +249,21 @@ class ContractsController < ApplicationController
        format.json{ render :json => @interest_method }
      end
   end
+  
+  def recieve_payment
+    payment_details = params[:recieve_payment].blank? ? nil : params[:recieve_payment]
+    card_number, full_name, expiry_month, expiry_year, cvv, amount = payment_details["full_name"], payment_details["card_number"], payment_details["expiry_date(2i)"], payment_details["expiry_date(1i)"], payment_details["cvv"], payment_details["amount"] unless payment_details.blank?
+    
+    respond_to do |format|
+     if (card_number.present? and full_name.present? and expiry_month.present? and expiry_year.present? and cvv.present? and amount.present?)
+       if payment_details["card_number"].to_i == 4111111111111111 
+          format.json{ render :json => {:success => "Payment Recieved Successfully"} }
+       else
+          format.json{ render :json => {:error  => "Credit Card Declined"} }
+       end
+     else
+       format.json{ render :json => {:error => "Please fill in all the details"} }
+     end
+    end
+  end
 end

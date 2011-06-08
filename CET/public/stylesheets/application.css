@@ -42,7 +42,7 @@ input {
   margin: 10px 0;
 }
 
-#flash_notice {
+#flash_notice{
   background-color: #CFC;
   border: solid 1px #6C6;
 }
@@ -50,6 +50,14 @@ input {
 #flash_error, #flash_alert, .ac_dis_field {
   background-color: #FCC;
   border: solid 1px #C66;
+}
+
+.error {
+  background-color: #FCC;
+}
+
+.success {
+  background-color: #CFC;
 }
 
 .fieldWithErrors {

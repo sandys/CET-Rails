@@ -149,6 +149,7 @@ $(function() {
   });
   
   $("#financing_options").click(function(){
+    $("#cc_payment_void").hide();
     $("#cc_payment_details").hide();
     $("#financing_options_details").show();
     event.preventDefault();
@@ -156,9 +157,28 @@ $(function() {
   
   $("#cc_payment").click(function(){
     $("#financing_options_details").hide();
+    $("#cc_payment_void").show();
     $("#cc_payment_details").show();
     event.preventDefault();
   });
+  
+  $("#recieve_payment").submit(function(event){
+    event.preventDefault(); 
+    $.post( '/contracts/recieve_payment', $(this).serialize(),
+      function( data ) {
+        if(data["error"]) {
+          $("#cc_payment_details .success").hide();
+          $("#cc_payment_details .error").html(data["error"]).show();
+        }
+        else if(data["success"]){
+          $("#cc_payment_details .error").hide();
+          $("#cc_payment_details .success").html(data["success"]).show();
+          $("#cc_payment_details input[name*='recieve_payment']").val("");
+          $("#cc_payment_details select").val("");
+        }
+      });
+  });
+  
 })
 
 

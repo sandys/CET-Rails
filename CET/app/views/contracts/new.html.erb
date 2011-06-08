@@ -71,3 +71,44 @@
 <% end %>
 
 <p><%= link_to "Back to List", contracts_path, :class => "button small gray" %></p>
+
+<% if @contract.current_step == "payment_detail" %>
+	<div id="cc_payment_details" style="position: absolute; margin-top: -290px; margin-left: 460px;" align="center">
+		<%= form_tag('/contracts/recieve_payment', :id => "recieve_payment") do -%>
+			<div class="success"></div>
+			<div class="error" ></div>
+			<br />
+			<table class="customers">
+				<tbody>
+				  <tr>
+				      <td><%= label_tag 'recieve_payment[full_name]', "Full Name" %></td>
+				      <td><%= text_field_tag "recieve_payment[full_name]", "" %></td>
+				  </tr>
+				  
+				  <tr>
+				      <td><%= label_tag 'recieve_payment[card_number]', "Card Number" %></td>
+				      <td><%= text_field_tag "recieve_payment[card_number]", "4111111111111111", :maxlength => 16, :class => "dull-txt", :onfocus => "$(this).clearfield('4111111111111111');", :onblur => "$(this).resetfield('4111111111111111');" %></td>
+				  </tr>
+				  
+				  <tr>
+				      <td><%= label_tag 'recieve_payment[expiry_date]', "Expiry Date" %></td>
+				      <td><%= date_select "recieve_payment", "expiry_date", :start_year => Time.now.year, :end_year => Time.now.year + 10, :use_month_short => true, :order => [:month, :year], :include_blank => true %></td>
+				  </tr>
+				  
+				  <tr>
+				      <td><%= label_tag 'recieve_payment[cvv]', "CVV" %></td>
+				      <td><%= password_field_tag "recieve_payment[cvv]", "", :maxlength => 3, :size => 3%></td>
+				  </tr>
+				  
+				  <tr>
+				      <td><%= label_tag 'recieve_payment[amount]', "Amount ($)" %></td>
+				      <td><%= text_field_tag "recieve_payment[amount]", total_cost(@contract), :readonly => true %></td>
+				  </tr>
+				  
+				</tbody>
+			</table>
+		<br />
+		<%= submit_tag "Make Payment", :class => "button blue" %>
+		<% end -%>
+	</div>
+<% end -%>

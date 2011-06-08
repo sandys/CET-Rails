@@ -21,6 +21,7 @@ CET::Application.routes.draw do
       post "usernames"
       post "customer_search"
       post "item_search"
+      post "recieve_payment"
     end
   end
 
