@@ -1,1 +1,1 @@
-jruby -J-Djruby.thread.pooling=true -J-Xmx2048m -J-Druby.native.enabled=false -J-Xms512m --fast --server -S trinidad -e sss_development
+jruby  -J-Djruby.thread.pool.min=1 -J-Djruby.thread.pool.max=1 -J-Djruby.stack.max=1024m -J-Djruby.thread.pooling=true -J-Xmx512m -J-Druby.native.enabled=false -J-Xms512m --fast --server -S trinidad -e sss_development --threadsafe 
