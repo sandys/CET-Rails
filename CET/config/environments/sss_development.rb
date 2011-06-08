@@ -19,7 +19,6 @@ CET::Application.configure do
   # just comment this out and Rails will serve the files
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
    config.log_level = :error
 
   # Use a different logger for distributed setups
