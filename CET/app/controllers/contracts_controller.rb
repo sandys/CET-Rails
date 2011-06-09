@@ -120,7 +120,7 @@ class ContractsController < ApplicationController
       elsif @contract.last_step?
         session[:cstep] = session[:cparams] = nil
         @contract.async_contract_entry()
-        format.html{ redirect_to contracts_url, :notice => "Contract updated successfully." }
+        format.html{ redirect_to contracts_url, :notice => "Your contract has been queued for generation. You will receive an email with all files shortly at #{current_user.email}" }
       else
         @contract.next_step
       end
