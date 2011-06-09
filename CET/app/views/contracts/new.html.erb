@@ -64,16 +64,20 @@
     </div>
   <% end %>
   <%= render "#{@contract.current_step}_step", :f => f %>
-  <%= f.submit "Back", :name => "back_button", :class => "button blue" unless @contract.first_step? %>
-  <%= f.submit "NEXT STEP", :class => "button blue" unless @contract.last_step? %>  
- 	<%= f.submit "Save Contract", :class => "button blue" if @contract.last_step? %>
-  
+  <div class="right">
+		<%= f.submit "Back", :name => "back_button", :class => "button blue" unless @contract.first_step? %>
+		<%= f.submit "NEXT STEP", :class => "button blue" unless @contract.last_step? %>  
+	 	<%= f.submit "Save & Generate Contract PDF", :class => "button blue" if @contract.last_step? %>
+  </div>
+  <div class="clear"></div>
 <% end %>
-
+<div class="right">
 <p><%= link_to "Back to List", contracts_path, :class => "button small gray" %></p>
-
+</div>
+<div class="clear"></div>
+  
 <% if @contract.current_step == "payment_detail" %>
-	<div id="cc_payment_details" style="position: absolute; margin-top: -290px; margin-left: 460px;" align="center">
+	<div id="cc_payment_details" style="display:none; position: absolute; margin-top: -290px; margin-left: 460px;" align="center">
 		<%= form_tag('/contracts/recieve_payment', :id => "recieve_payment") do -%>
 			<div class="success"></div>
 			<div class="error" ></div>

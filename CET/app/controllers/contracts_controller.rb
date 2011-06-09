@@ -19,7 +19,7 @@ class ContractsController < ApplicationController
     @name_types = HMIS::name_types()
     @discount_reason = HMIS::get_discount_reason
     #@upload_type = HMIS::file_upload_type
-    
+    session[:cstep] = params['q'].blank? ? session[:cstep] : params['q']
     @contract.current_step = session[:cstep]
     if @contract.current_step == "personal_detail"
         @personal_details = session[:cparams]["personal"] unless session[:cparams]["personal"].nil?
@@ -65,7 +65,7 @@ class ContractsController < ApplicationController
       unless @contract.new_record?
         @contract.async_contract_entry()
         session[:cstep] = session[:cparams] = nil
-        format.html{ redirect_to contracts_url, :notice => "Contract created successfully." }
+        format.html{ redirect_to contracts_url, :notice => "Your contract has been queued for generation. You will receive an email with all files shortly at #{current_user.email}" }
       else
         #flash[:error] = "Error Occured"
         format.html { redirect_to(:action => "new") }
@@ -84,7 +84,7 @@ class ContractsController < ApplicationController
     @name_types = HMIS::name_types()
     @discount_reason = HMIS::get_discount_reason
     #@upload_type = HMIS::file_upload_type
-    
+    session[:cstep] = params['q'].blank? ? session[:cstep] : params['q']
     @contract.current_step = session[:cstep]
     if @contract.current_step == "personal_detail"
         @personal_details = session[:cparams]["personal"] unless session[:cparams]["personal"].nil?

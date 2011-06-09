@@ -1,0 +1,232 @@
+<% title "Summary Details" %>
+<div class="heading gray">
+	<div class="left">Contract Details</div>
+	<div class="right white"><%= link_to "Edit", "?q=contract_detail" %></div>
+	<div class="clear"></div>
+</div>
+<br />
+<br />
+
+<table class="customers" style="width: 70%; text-align: left; margin: auto; border: 1px solid #BAD3EA;">
+		<tbody>
+		  <tr class="alt">
+				<td><b>Username</b></td>
+				<td><%= @contract.data["username"]%></td>
+				<td><b>Location</b></td>
+				<td><%= @contract.data["location_id"] %></td>
+			</tr>
+			<tr class="alt">
+				<td><b>Contract ID</b></td>
+				<td><%= @contract.data["contract_no"] %></td>
+				<td><b>Sale date</b></td>
+				<td><%= @contract.data["sales_date"] %></td>
+		  </tr>
+		  <tr class="alt">
+				<td><b>Sales Type</b></td>
+				<td><%= @contract.data["sales_type"] %></td>
+				<td><b>Sales Need</b></td>
+				<td><%= @contract.data["sales_need"] %></td>
+		  </tr>
+		  <tr class="alt">
+				<td><b>Sales TXN Type</b></td>
+				<td><%= @contract.data["sales_txn_type"] %></td>
+				<td><b>Lead Source</b></td>
+				<td><%= @contract.data["sales_lead_source"] %></td>
+		  </tr>
+		  <tr class="alt">
+				<td><b>Primary Counselor</b></td>
+				<td><%= @contract.data["sales_primary_counselor"] %></td>
+				<td><b>Secondary Counselor</b></td>
+				<td><%= @contract.data["sales_secondary_counselor_1"] %></td>
+		  </tr>
+		</tbody>
+	</table>
+
+
+<br />
+<br />
+
+<div class="heading gray">
+	<div class="left">Personal Details</div>
+	<div class="right white"><%= link_to "Edit", "?q=personal_detail" %></div>
+	<div class="clear"></div>
+</div>
+
+<br />
+<br />
+<table class="customers" style="width: 90%; text-align: center; margin: auto; border: 1px solid #BAD3EA;">
+  <tbody>
+      <tr>
+        <th>Type</th>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Last Name</th>
+        <th>Zipcode</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Phone</th>
+        <th>DOB [mm/dd/yyyy]</th>
+        <th>SSN</th>
+      </tr>
+		<% details = @contract.data["personal"] %>
+		<% (1..details.length).each do |i| %>
+			<% unless details[i.to_s]["first_name"].blank? %>
+				<tr class=<%= i%2 == 0 ? "alt" : ""%>>
+					<td>
+						<%= details[i.to_s]["name_type"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["first_name"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["middle_name"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["last_name"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["zipcode"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["address"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["city"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["state"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["phone"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["dob"] %>
+					</td>
+					<td>
+						<%= details[i.to_s]["ssn"] %>
+					</td>
+				</tr>
+			<% end -%>
+		<% end -%>
+	</tbody>
+</table>
+<br />
+<br />
+
+
+
+
+
+<div class="heading gray">
+	<div class="left">Item Details</div>
+	<div class="right white"><%= link_to "Edit", "?q=item_detail" %></div>
+	<div class="clear"></div>
+</div>
+<br />
+<br />
+<table class="customers" style="width: 70%; text-align: center; margin: auto; border: 1px solid #BAD3EA;">
+  <tbody>
+    <tr>
+      <th>Item code</th>
+      <th>Item Description</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Discount%</th>
+      <th>Discount reason</th>
+    </tr>
+		<% items = @contract.data["item"] %>
+		<% (1..items.length).each do |i| %>
+			<% unless items[i.to_s]["final_code"].blank? %>
+				<tr class=<%= i%2 == 0 ? "alt" : ""%>>
+					<td>
+						<%= items[i.to_s]["final_code"] %>
+					</td>
+					<td>
+						<%= items[i.to_s]["final_desc"] %>
+					</td>
+					<td>
+						<%= items[i.to_s]["quantity"] %>
+					</td>
+					<td>
+						<%= items[i.to_s]["price"] %>
+					</td>
+					<td>
+						<%= items[i.to_s]["discount_percent"] %>
+					</td>
+					<td>
+						<%= items[i.to_s]["discount_reason"] %>
+					</td>
+				</tr>
+			<% end -%>
+		<% end -%>
+	</tbody>
+</table>
+<br />
+<br />
+
+<div class="heading gray">
+	<div class="left">Payment Details</div>
+	<div class="right white"><%= link_to "Edit", "?q=payment_detail" %></div>
+	<div class="clear"></div>
+</div>
+<br />
+<br />
+<div id="payment_details_summary">
+	<table class="customers" style="width: 70%; text-align: center; margin: auto; border: 1px solid #BAD3EA;">
+		<tbody>
+		  <tr class="alt">
+				<td><b>Terms</b></td>
+				<td><%= @contract.data["interest_term"]%></td>
+				<td><b>Payment Start Date</b></td>
+				<td><%= @contract.data["interest_payment_start_date"] %></td>
+				<td><b>Interest Method</b></td>
+				<td><%= @contract.data["interest_method"] %></td>
+		  </tr>
+		  <tr class="alt">
+				<td><b>Interest Rate</b></td>
+				<td><%= @contract.data["interest_rate"] %></td>
+				<td><b>Days Interest Free</b></td>
+				<td><%= @contract.data["interest_free_days"] %></td>
+				<td><b>Forgive Interest</b></td>
+				<td><%= @contract.data["interest_forgive"] %></td>
+		  </tr>
+		</tbody>
+	</table>
+	<br />
+	<br />
+
+	<table class="customers" style="width: 70%; text-align: center; margin: auto; border: 1px solid #BAD3EA;">
+			<tbody>
+				<tr>
+				  <th>Down pymt date</th>
+				  <th>Amount</th>
+				  <th>Down pymt type</th>
+				  <th>remarks</th>
+				</tr>
+			<% payment_details = @contract.data["payment"] %>
+			<% (1..payment_details.length).each do |item| %>
+				<% unless payment_details[item.to_s]["amount"].blank? %>
+					<tr class=<%= item%2 == 0 ? "alt" : ""%>>
+						<td>
+							<%= payment_details[item.to_s]["date"] %>
+						</td>
+						<td>
+							<%= payment_details[item.to_s]["amount"] %>
+						</td>
+						<td>
+							<%= payment_details[item.to_s]["type"] %>
+						</td>
+						<td>
+							<%= payment_details[item.to_s]["remarks"] %>
+						</td>
+					</tr>
+				<% end -%>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<br />
+<br />
+<br />
+<br />
